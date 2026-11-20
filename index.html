@@ -350,7 +350,7 @@ button.irlChip{z-index:6}
 .csItem:nth-child(3){grid-column:1/-1;border-left:0;padding-left:0;border-top:1px solid rgba(242,238,229,.18);padding-top:10px}
 }
 /* ============ PAGE TURN — Scene 01 → Scene 02 transition (merged 3-reviewer spec) ============
-   Fixed black cover with a pre-rendered torn brush edge + speed-line strip on the same
+   Fixed black cover with a pre-rendered torn brush edge on the same
    transform (translate3d only, no animated masks/filters). Zone height exists only when
    JS arms the transition (html.js-pt), so no-JS and reduced-motion stack normally. */
 #pageTurnZone{height:0;background:linear-gradient(180deg,#080808,#0b0b0f)}
@@ -365,9 +365,9 @@ html.js-pt #ptCover{display:block}
 .pt-edge{position:absolute;top:-16%;bottom:-16%;left:-110px;width:150px;transform:rotate(6deg);filter:drop-shadow(-16px 0 22px rgba(0,0,0,.55)) drop-shadow(-3px 0 10px rgba(213,163,67,.28))}
 .pt-edge svg{display:block;width:100%;height:100%}
 .pt-edge .tone{position:absolute;inset:0;background-image:radial-gradient(rgba(242,238,229,.16) 1px,transparent 1.3px);background-size:7px 7px;opacity:.35;-webkit-mask-image:linear-gradient(90deg,transparent,#000 60%);mask-image:linear-gradient(90deg,transparent,#000 60%)}
-.pt-speed{position:absolute;top:0;bottom:0;left:-372px;width:280px;background-image:repeating-linear-gradient(180deg,rgba(242,238,229,.17) 0 2px,transparent 2px 34px),repeating-linear-gradient(180deg,rgba(213,163,67,.13) 0 2px,transparent 2px 57px);-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%,#000 85%,transparent);mask-image:linear-gradient(90deg,transparent,#000 30%,#000 85%,transparent)}
-#ptMover.active .pt-speed{animation:ptSpeedDash .38s linear infinite}
-@keyframes ptSpeedDash{from{background-position:0 0,0 0}to{background-position:0 68px,0 -114px}}
+/* parked cover must never peek into the viewport: the torn edge sits left of the
+   mover's box, so hide it whenever the cover is not actively wiping */
+#ptMover:not(.active) .pt-edge{visibility:hidden}
 /* ink slash streaks — diagonal cuts that streak across the cover while it moves */
 .pt-slash{position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0}
 #ptMover.active .pt-slash{opacity:1}
@@ -482,7 +482,6 @@ html.js-pt #ptCover{display:block}
 <div id="ptCover" aria-hidden="true">
 <div id="ptMover"><div class="pt-settle" id="ptSettle">
 <div class="pt-black"></div>
-<div class="pt-speed"></div>
 <div class="pt-slash" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="pt-edge"><svg viewBox="0 0 150 600" preserveAspectRatio="none" focusable="false" aria-hidden="true"><path d="M150,0 L150,600 L84,600 L70,548 L86,502 L64,452 L80,404 L58,352 L76,300 L60,252 L82,206 L66,156 L84,108 L68,58 L88,0 Z" fill="#080808"/></svg><span class="tone"></span></div>
 </div></div>
