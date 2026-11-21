@@ -728,6 +728,28 @@ html.js-pt #ptCover{display:block}
 .hud-bar{width:44px;height:3px;background:rgba(242,238,229,.18);display:inline-block;position:relative;flex:none}
 .hud-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:#D5A343}
 @media(max-width:520px){#hudTracker{left:10px;bottom:10px;font-size:10px;padding:6px 8px}.hud-bar{display:none}}
+/* ============ PAGE TURN — Scenes 02→03 … 08→09 (generic boundaries, ONE shared cover) ============
+   Same machinery as Scene 01→02: a fixed black cover with the same pre-rendered
+   torn edge, one scrub-driven ~60svh zone per boundary, the incoming chapter's
+   title slam + red hanko, then the handoff into its real H2 slot. Zone heights
+   exist only when JS arms the system (html.js-pt2), so no-JS / no-GSAP /
+   reduced-motion stack normally with everything visible. */
+.ptz2{height:0;background:linear-gradient(180deg,#080808,#0b0b0f)}
+html.js-pt2 .ptz2{height:60svh}
+@media(max-width:767px){html.js-pt2 .ptz2{height:50svh}}
+#ptCover2{position:fixed;inset:0;z-index:90;pointer-events:none;display:none}
+html.js-pt2 #ptCover2{display:block}
+#ptMover2{position:absolute;inset:0;transform:translate3d(112%,0,0)}
+#ptMover2.active{will-change:transform}
+#ptMover2:not(.active) .pt-edge{visibility:hidden}
+#ptMover2.active .pt-slash{opacity:1}
+#ptMover2.active .pt-slash i{animation:ptSlashCut .52s ease-in-out infinite}
+#ptMover2.active .pt-slash i:nth-child(2){animation-delay:.09s}
+#ptMover2.active .pt-slash i:nth-child(3){animation-delay:.18s}
+#ptCard2{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;visibility:hidden;padding:0 20px}
+#ptCard2 .pt-titleWrap{max-width:94vw}
+#ptCard2 .pt-title{font-size:clamp(38px,8vw,92px)}
+@media(prefers-reduced-motion:reduce){#ptCover2{display:none!important}.ptz2{display:none!important}}
 /* panel assembly — gold border-draw overlay (scaleX / scaleY strokes) */
 .pt-draw{position:absolute;inset:-3px;pointer-events:none;z-index:6;display:block}
 .pt-draw .h{position:absolute;inset:0;border-top:3px solid #D5A343;border-bottom:3px solid #D5A343;transform:scaleX(0);display:block}
@@ -953,6 +975,22 @@ html.js-pt #ptCover{display:block}
 </div>
 <div id="hudTracker" aria-hidden="true"><span>CHAPTER</span><span class="hud-win"><span class="hud-nums"><i>01</i><i>02</i></span></span><span class="hud-tick"></span><span class="hud-bar"><i></i></span></div>
 
+<!-- PAGE TURN — Scenes 02→03 … 08→09 (one shared fixed cover + title card, driven per boundary by its own zone) -->
+<div id="ptCover2" aria-hidden="true">
+<div id="ptMover2"><div class="pt-settle" id="ptSettle2">
+<div class="pt-black"></div>
+<div class="pt-slash" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="pt-edge"><svg viewBox="0 0 150 600" preserveAspectRatio="none" focusable="false" aria-hidden="true"><path d="M150,0 L150,600 L84,600 L70,548 L86,502 L64,452 L80,404 L58,352 L76,300 L60,252 L82,206 L66,156 L84,108 L68,58 L88,0 Z" fill="#080808"/></svg><span class="tone"></span></div>
+</div></div>
+<div class="pt-flash" id="ptFlash2" aria-hidden="true"></div>
+<div id="ptCard2">
+<span class="pt-rings" id="ptRings2" aria-hidden="true"><i></i><i></i><i></i></span>
+<span class="pt-sfx" id="ptSfx2" aria-hidden="true">SHING!</span>
+<p class="pt-eyebrow">CHAPTER 03</p>
+<div class="pt-titleWrap"><span class="pt-burst"></span><div class="pt-title">POWER LEVELS</div><span class="pt-seal">03</span></div>
+</div>
+</div>
+
 <!-- SCENE 2 / CHARACTER FILE -->
 <section id="file" class="scene scene-character"><div class="scene-bg"></div><button type="button" class="pt-dogear" id="ptDogear" aria-label="Back to Chapter 01 — the hero"></button><span class="pt-page-no" aria-hidden="true">02 — 001</span><div class="wrap">
 <div class="cf-head pt-head">
@@ -996,6 +1034,7 @@ html.js-pt #ptCover{display:block}
 </div></section>
 <img class="divider" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDYwIiB3aWR0aD0iMTAwJSI+PGRlZnM+CjxwYXR0ZXJuIGlkPSJkb3RzIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoMzApIj48Y2lyY2xlIGN4PSI0LjUiIGN5PSI0LjUiIHI9IjEuNyIgZmlsbD0iIzAwMCIvPjwvcGF0dGVybj4KPHBhdHRlcm4gaWQ9ImRvdHMyIiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoNDUpIj48Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS4yIiBmaWxsPSIjZmZmIi8+PC9wYXR0ZXJuPgo8cGF0dGVybiBpZD0iaGF0Y2giIHdpZHRoPSI3IiBoZWlnaHQ9IjciIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0MCkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSI3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS42Ii8+PC9wYXR0ZXJuPgo8bGluZWFyR3JhZGllbnQgaWQ9ImZhZGUiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+CjxtYXNrIGlkPSJtIj48cmVjdCB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9InVybCgjZmFkZSkiLz48L21hc2s+CjwvZGVmcz48c3R5bGU+Cip7dHJhbnNmb3JtLWJveDpmaWxsLWJveH0KQGtleWZyYW1lcyBkcmlmdHtmcm9te3RyYW5zZm9ybTp0cmFuc2xhdGUoMCwwKX10b3t0cmFuc2Zvcm06dHJhbnNsYXRlKDE4cHgsOXB4KX19CkBrZXlmcmFtZXMgcHVsc2V7MCUsMTAwJXt0cmFuc2Zvcm06c2NhbGUoMSl9NTAle3RyYW5zZm9ybTpzY2FsZSgxLjA2KX19CkBrZXlmcmFtZXMgcG9wezAlLDEwMCV7dHJhbnNmb3JtOnNjYWxlKDEpIHJvdGF0ZSgwKX01MCV7dHJhbnNmb3JtOnNjYWxlKDEuMTIpIHJvdGF0ZSgzZGVnKX19CkBrZXlmcmFtZXMgc2hha2V7MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9MjUle3RyYW5zZm9ybTp0cmFuc2xhdGUoMnB4LC0ycHgpfTc1JXt0cmFuc2Zvcm06dHJhbnNsYXRlKC0ycHgsMnB4KX19CkBrZXlmcmFtZXMgYmxpbmt7MCUsNDkle29wYWNpdHk6MX01MCUsMTAwJXtvcGFjaXR5OjB9fQpAa2V5ZnJhbWVzIHNwaW57dG97dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX0KQGtleWZyYW1lcyBzcGlucnt0b3t0cmFuc2Zvcm06cm90YXRlKC0zNjBkZWcpfX0KQGtleWZyYW1lcyBmbG9hdHswJSwxMDAle3RyYW5zZm9ybTp0cmFuc2xhdGVZKDApfTUwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtMTJweCl9fQpAa2V5ZnJhbWVzIHR3aW5rbGV7MCUsMTAwJXtvcGFjaXR5Oi4xO3RyYW5zZm9ybTpzY2FsZSguMyl9NTAle29wYWNpdHk6MTt0cmFuc2Zvcm06c2NhbGUoMSl9fQpAa2V5ZnJhbWVzIGV5ZWJsaW5rezAlLDkyJSwxMDAle3RyYW5zZm9ybTpzY2FsZVkoMSl9OTUle3RyYW5zZm9ybTpzY2FsZVkoLjA3KX19CkBrZXlmcmFtZXMgY292ZXJ7MCUsNSV7dHJhbnNmb3JtOnNjYWxlWCgxKX0zMCUsOTIle3RyYW5zZm9ybTpzY2FsZVgoMCl9MTAwJXt0cmFuc2Zvcm06c2NhbGVYKDEpfX0KQGtleWZyYW1lcyBzZWdpbnswJSw2JXtvcGFjaXR5OjB9MTQlLDg2JXtvcGFjaXR5OjF9MTAwJXtvcGFjaXR5OjB9fQpAa2V5ZnJhbWVzIG1hcnF7dG97dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTE1MDBweCl9fQpAa2V5ZnJhbWVzIG1hcnFye2Zyb217dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTE1MDBweCl9dG97dHJhbnNmb3JtOnRyYW5zbGF0ZVgoMCl9fQpAa2V5ZnJhbWVzIHN3ZWVwezAlLDU1JXt0cmFuc2Zvcm06dHJhbnNsYXRlWCgtMzIwcHgpIHNrZXdYKC0yMGRlZyl9MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWCg0MjBweCkgc2tld1goLTIwZGVnKX19CkBrZXlmcmFtZXMgd2F2ZXswJXt0cmFuc2Zvcm06c2NhbGUoLjU1KTtvcGFjaXR5Oi44NX0xMDAle3RyYW5zZm9ybTpzY2FsZSgxLjcpO29wYWNpdHk6MH19CkBrZXlmcmFtZXMgc3dheXswJSwxMDAle3RyYW5zZm9ybTpyb3RhdGUoLTZkZWcpfTUwJXt0cmFuc2Zvcm06cm90YXRlKDdkZWcpfX0KQGtleWZyYW1lcyBrZXl7MCUsMTAwJXtvcGFjaXR5Oi4xNX01MCV7b3BhY2l0eToxfX0KQGtleWZyYW1lcyBmbGFzaHswJSw5MCUsMTAwJXtvcGFjaXR5OjB9OTMle29wYWNpdHk6Ljg1fTk2JXtvcGFjaXR5OjB9OTgle29wYWNpdHk6LjZ9fQpAa2V5ZnJhbWVzIGdsaXRjaHswJSw5MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9OTIle3RyYW5zZm9ybTp0cmFuc2xhdGUoLTVweCwxcHgpfTk1JXt0cmFuc2Zvcm06dHJhbnNsYXRlKDVweCwtMXB4KX05NyV7dHJhbnNmb3JtOnRyYW5zbGF0ZSgtMnB4LDApfX0KQGtleWZyYW1lcyBib3VuY2V7MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKX01MCV7dHJhbnNmb3JtOnRyYW5zbGF0ZVkoN3B4KX19CkBrZXlmcmFtZXMgbG9va3swJSw0MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9NTAlLDgwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDlweCwtNXB4KX19CkBrZXlmcmFtZXMgZ3Jvd3swJSw4JXt0cmFuc2Zvcm06c2NhbGVYKDApfTQwJSw5MCV7dHJhbnNmb3JtOnNjYWxlWCgxKX0xMDAle3RyYW5zZm9ybTpzY2FsZVgoMCl9fQouZHJpZnR7YW5pbWF0aW9uOmRyaWZ0IDNzIGVhc2UtaW4tb3V0IGluZmluaXRlIGFsdGVybmF0ZX0KLnB1bHNle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpwdWxzZSAyLjJzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoucG9we3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpwb3AgMS4xcyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLnNoYWtle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpzaGFrZSAuNDVzIHN0ZXBzKDIpIGluZmluaXRlfQouYmxpbmt7YW5pbWF0aW9uOmJsaW5rIDFzIHN0ZXBzKDEpIGluZmluaXRlfQouc3Bpbnt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246c3BpbiA0MHMgbGluZWFyIGluZmluaXRlfQouc3BpbnJ7dHJhbnNmb3JtLW9yaWdpbjpjZW50ZXI7YW5pbWF0aW9uOnNwaW5yIDYwcyBsaW5lYXIgaW5maW5pdGV9Ci5mbG9hdHt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246ZmxvYXQgMy40cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLnR3aW5rbGV7dHJhbnNmb3JtLW9yaWdpbjpjZW50ZXI7YW5pbWF0aW9uOnR3aW5rbGUgMi40cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLmJsaW5rZXlle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpleWVibGluayA1cyBpbmZpbml0ZX0KLmNvdnt0cmFuc2Zvcm0tb3JpZ2luOnJpZ2h0IGNlbnRlcjthbmltYXRpb246Y292ZXIgOXMgc3RlcHMoMjQpIGluZmluaXRlfQouc2Vne2FuaW1hdGlvbjpzZWdpbiA2cyBlYXNlLW91dCBpbmZpbml0ZX0KLm1hcnF7YW5pbWF0aW9uOm1hcnEgMjhzIGxpbmVhciBpbmZpbml0ZX0ubWFycXJ7YW5pbWF0aW9uOm1hcnFyIDM0cyBsaW5lYXIgaW5maW5pdGV9Ci5zd2VlcHthbmltYXRpb246c3dlZXAgNXMgZWFzZS1pbi1vdXQgaW5maW5pdGV9Ci53YXZle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjp3YXZlIDIuNHMgZWFzZS1vdXQgaW5maW5pdGV9Ci5zd2F5e3RyYW5zZm9ybS1vcmlnaW46Ym90dG9tIGNlbnRlcjthbmltYXRpb246c3dheSAyLjhzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoua2V5e2FuaW1hdGlvbjprZXkgLjlzIHN0ZXBzKDEpIGluZmluaXRlfQouZmxhc2h7YW5pbWF0aW9uOmZsYXNoIDdzIGluZmluaXRlfQouZ2xpdGNoe2FuaW1hdGlvbjpnbGl0Y2ggNnMgaW5maW5pdGV9Ci5ib3VuY2V7YW5pbWF0aW9uOmJvdW5jZSAxLjFzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoubG9va3thbmltYXRpb246bG9vayA2cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLmdyb3d7dHJhbnNmb3JtLW9yaWdpbjpsZWZ0IGNlbnRlcjthbmltYXRpb246Z3JvdyA1cyBlYXNlLW91dCBpbmZpbml0ZX0KPC9zdHlsZT48cmVjdCB5PSIyNiIgd2lkdGg9IjEwMDAiIGhlaWdodD0iOCIgZmlsbD0iIzAwMCIvPjxsaW5lIHgxPSIwIiB5MT0iMzAiIHgyPSIxMDAwIiB5Mj0iMzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIxNCAxMCIvPjxnIGNsYXNzPSJmbG9hdCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAwLDMwKSI+PGcgY2xhc3M9InR3aW5rbGUiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MHMiPjxwYXRoIGQ9Ik0wLC0xNCBMMy4xLC0zLjEgTDE0LDAgTDMuMSwzLjEgTDAsMTQgTC0zLjEsMy4xIEwtMTQsMCBMLTMuMSwtMy4xIFoiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3MDAsMzApIj48ZyBjbGFzcz0idHdpbmtsZSIgc3R5bGU9ImFuaW1hdGlvbi1kZWxheToxcyI+PHBhdGggZD0iTTAsLTE0IEwzLjEsLTMuMSBMMTQsMCBMMy4xLDMuMSBMMCwxNCBMLTMuMSwzLjEgTC0xNCwwIEwtMy4xLC0zLjEgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9nPjwvZz48cG9seWdvbiBwb2ludHM9IjQwMCw2IDYwMCw2IDYyMCw1NCAzODAsNTQiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI1Ii8+PHRleHQgeD0iNTAwIiB5PSI0MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkltcGFjdCwnQXJpYWwgQmxhY2snLCdBcmlhbCBOYXJyb3cgQm9sZCcsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgbGV0dGVyLXNwYWNpbmc9IjQiPlRVUk4gVEhFIFBBR0U8dHNwYW4gY2xhc3M9ImJsaW5rIj4g4pa2PC90c3Bhbj48L3RleHQ+PC9zdmc+" alt=""/>
 
+<div class="ptz2" data-pt="power" aria-hidden="true"></div>
 <!-- SCENE 3 / POWER -->
 <section id="power" class="scene scene-power"><div class="scene-bg"></div><span class="pw-bgnum" aria-hidden="true">03</span><div class="pw-sweep" aria-hidden="true"></div><div class="wrap">
 <div class="pw-head">
@@ -1012,6 +1051,7 @@ html.js-pt #ptCover{display:block}
 <article class="pw-card pw-secondary"><p class="pw-tag">06 / RECOGNITION</p><p class="pw-value"><span class="pw-sr">6</span><span class="pw-count" aria-hidden="true" data-target="6">6</span></p><h3 class="pw-label">GitHub Achievements</h3><p class="pw-body">Pull Shark ×2 · Quickdraw · YOLO · Developer Program Member · Pro</p></article>
 </div></div></section>
 
+<div class="ptz2" data-pt="skills" aria-hidden="true"></div>
 <!-- SCENE 4 / MOVES -->
 <section id="skills" class="scene scene-moves"><div class="scene-bg"></div><span class="mv-bgnum" aria-hidden="true">04</span><div class="wrap">
 <div class="mv-head">
@@ -1037,6 +1077,7 @@ html.js-pt #ptCover{display:block}
 </div></div></section>
 <img class="divider" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDYwIiB3aWR0aD0iMTAwJSI+PGRlZnM+CjxwYXR0ZXJuIGlkPSJkb3RzIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoMzApIj48Y2lyY2xlIGN4PSI0LjUiIGN5PSI0LjUiIHI9IjEuNyIgZmlsbD0iIzAwMCIvPjwvcGF0dGVybj4KPHBhdHRlcm4gaWQ9ImRvdHMyIiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoNDUpIj48Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS4yIiBmaWxsPSIjZmZmIi8+PC9wYXR0ZXJuPgo8cGF0dGVybiBpZD0iaGF0Y2giIHdpZHRoPSI3IiBoZWlnaHQ9IjciIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0MCkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSI3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS42Ii8+PC9wYXR0ZXJuPgo8bGluZWFyR3JhZGllbnQgaWQ9ImZhZGUiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+CjxtYXNrIGlkPSJtIj48cmVjdCB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9InVybCgjZmFkZSkiLz48L21hc2s+CjwvZGVmcz48c3R5bGU+Cip7dHJhbnNmb3JtLWJveDpmaWxsLWJveH0KQGtleWZyYW1lcyBkcmlmdHtmcm9te3RyYW5zZm9ybTp0cmFuc2xhdGUoMCwwKX10b3t0cmFuc2Zvcm06dHJhbnNsYXRlKDE4cHgsOXB4KX19CkBrZXlmcmFtZXMgcHVsc2V7MCUsMTAwJXt0cmFuc2Zvcm06c2NhbGUoMSl9NTAle3RyYW5zZm9ybTpzY2FsZSgxLjA2KX19CkBrZXlmcmFtZXMgcG9wezAlLDEwMCV7dHJhbnNmb3JtOnNjYWxlKDEpIHJvdGF0ZSgwKX01MCV7dHJhbnNmb3JtOnNjYWxlKDEuMTIpIHJvdGF0ZSgzZGVnKX19CkBrZXlmcmFtZXMgc2hha2V7MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9MjUle3RyYW5zZm9ybTp0cmFuc2xhdGUoMnB4LC0ycHgpfTc1JXt0cmFuc2Zvcm06dHJhbnNsYXRlKC0ycHgsMnB4KX19CkBrZXlmcmFtZXMgYmxpbmt7MCUsNDkle29wYWNpdHk6MX01MCUsMTAwJXtvcGFjaXR5OjB9fQpAa2V5ZnJhbWVzIHNwaW57dG97dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX0KQGtleWZyYW1lcyBzcGlucnt0b3t0cmFuc2Zvcm06cm90YXRlKC0zNjBkZWcpfX0KQGtleWZyYW1lcyBmbG9hdHswJSwxMDAle3RyYW5zZm9ybTp0cmFuc2xhdGVZKDApfTUwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtMTJweCl9fQpAa2V5ZnJhbWVzIHR3aW5rbGV7MCUsMTAwJXtvcGFjaXR5Oi4xO3RyYW5zZm9ybTpzY2FsZSguMyl9NTAle29wYWNpdHk6MTt0cmFuc2Zvcm06c2NhbGUoMSl9fQpAa2V5ZnJhbWVzIGV5ZWJsaW5rezAlLDkyJSwxMDAle3RyYW5zZm9ybTpzY2FsZVkoMSl9OTUle3RyYW5zZm9ybTpzY2FsZVkoLjA3KX19CkBrZXlmcmFtZXMgY292ZXJ7MCUsNSV7dHJhbnNmb3JtOnNjYWxlWCgxKX0zMCUsOTIle3RyYW5zZm9ybTpzY2FsZVgoMCl9MTAwJXt0cmFuc2Zvcm06c2NhbGVYKDEpfX0KQGtleWZyYW1lcyBzZWdpbnswJSw2JXtvcGFjaXR5OjB9MTQlLDg2JXtvcGFjaXR5OjF9MTAwJXtvcGFjaXR5OjB9fQpAa2V5ZnJhbWVzIG1hcnF7dG97dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTE1MDBweCl9fQpAa2V5ZnJhbWVzIG1hcnFye2Zyb217dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTE1MDBweCl9dG97dHJhbnNmb3JtOnRyYW5zbGF0ZVgoMCl9fQpAa2V5ZnJhbWVzIHN3ZWVwezAlLDU1JXt0cmFuc2Zvcm06dHJhbnNsYXRlWCgtMzIwcHgpIHNrZXdYKC0yMGRlZyl9MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWCg0MjBweCkgc2tld1goLTIwZGVnKX19CkBrZXlmcmFtZXMgd2F2ZXswJXt0cmFuc2Zvcm06c2NhbGUoLjU1KTtvcGFjaXR5Oi44NX0xMDAle3RyYW5zZm9ybTpzY2FsZSgxLjcpO29wYWNpdHk6MH19CkBrZXlmcmFtZXMgc3dheXswJSwxMDAle3RyYW5zZm9ybTpyb3RhdGUoLTZkZWcpfTUwJXt0cmFuc2Zvcm06cm90YXRlKDdkZWcpfX0KQGtleWZyYW1lcyBrZXl7MCUsMTAwJXtvcGFjaXR5Oi4xNX01MCV7b3BhY2l0eToxfX0KQGtleWZyYW1lcyBmbGFzaHswJSw5MCUsMTAwJXtvcGFjaXR5OjB9OTMle29wYWNpdHk6Ljg1fTk2JXtvcGFjaXR5OjB9OTgle29wYWNpdHk6LjZ9fQpAa2V5ZnJhbWVzIGdsaXRjaHswJSw5MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9OTIle3RyYW5zZm9ybTp0cmFuc2xhdGUoLTVweCwxcHgpfTk1JXt0cmFuc2Zvcm06dHJhbnNsYXRlKDVweCwtMXB4KX05NyV7dHJhbnNmb3JtOnRyYW5zbGF0ZSgtMnB4LDApfX0KQGtleWZyYW1lcyBib3VuY2V7MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKX01MCV7dHJhbnNmb3JtOnRyYW5zbGF0ZVkoN3B4KX19CkBrZXlmcmFtZXMgbG9va3swJSw0MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9NTAlLDgwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDlweCwtNXB4KX19CkBrZXlmcmFtZXMgZ3Jvd3swJSw4JXt0cmFuc2Zvcm06c2NhbGVYKDApfTQwJSw5MCV7dHJhbnNmb3JtOnNjYWxlWCgxKX0xMDAle3RyYW5zZm9ybTpzY2FsZVgoMCl9fQouZHJpZnR7YW5pbWF0aW9uOmRyaWZ0IDNzIGVhc2UtaW4tb3V0IGluZmluaXRlIGFsdGVybmF0ZX0KLnB1bHNle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpwdWxzZSAyLjJzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoucG9we3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpwb3AgMS4xcyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLnNoYWtle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpzaGFrZSAuNDVzIHN0ZXBzKDIpIGluZmluaXRlfQouYmxpbmt7YW5pbWF0aW9uOmJsaW5rIDFzIHN0ZXBzKDEpIGluZmluaXRlfQouc3Bpbnt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246c3BpbiA0MHMgbGluZWFyIGluZmluaXRlfQouc3BpbnJ7dHJhbnNmb3JtLW9yaWdpbjpjZW50ZXI7YW5pbWF0aW9uOnNwaW5yIDYwcyBsaW5lYXIgaW5maW5pdGV9Ci5mbG9hdHt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246ZmxvYXQgMy40cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLnR3aW5rbGV7dHJhbnNmb3JtLW9yaWdpbjpjZW50ZXI7YW5pbWF0aW9uOnR3aW5rbGUgMi40cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLmJsaW5rZXlle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpleWVibGluayA1cyBpbmZpbml0ZX0KLmNvdnt0cmFuc2Zvcm0tb3JpZ2luOnJpZ2h0IGNlbnRlcjthbmltYXRpb246Y292ZXIgOXMgc3RlcHMoMjQpIGluZmluaXRlfQouc2Vne2FuaW1hdGlvbjpzZWdpbiA2cyBlYXNlLW91dCBpbmZpbml0ZX0KLm1hcnF7YW5pbWF0aW9uOm1hcnEgMjhzIGxpbmVhciBpbmZpbml0ZX0ubWFycXJ7YW5pbWF0aW9uOm1hcnFyIDM0cyBsaW5lYXIgaW5maW5pdGV9Ci5zd2VlcHthbmltYXRpb246c3dlZXAgNXMgZWFzZS1pbi1vdXQgaW5maW5pdGV9Ci53YXZle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjp3YXZlIDIuNHMgZWFzZS1vdXQgaW5maW5pdGV9Ci5zd2F5e3RyYW5zZm9ybS1vcmlnaW46Ym90dG9tIGNlbnRlcjthbmltYXRpb246c3dheSAyLjhzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoua2V5e2FuaW1hdGlvbjprZXkgLjlzIHN0ZXBzKDEpIGluZmluaXRlfQouZmxhc2h7YW5pbWF0aW9uOmZsYXNoIDdzIGluZmluaXRlfQouZ2xpdGNoe2FuaW1hdGlvbjpnbGl0Y2ggNnMgaW5maW5pdGV9Ci5ib3VuY2V7YW5pbWF0aW9uOmJvdW5jZSAxLjFzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoubG9va3thbmltYXRpb246bG9vayA2cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLmdyb3d7dHJhbnNmb3JtLW9yaWdpbjpsZWZ0IGNlbnRlcjthbmltYXRpb246Z3JvdyA1cyBlYXNlLW91dCBpbmZpbml0ZX0KPC9zdHlsZT48cmVjdCB5PSIyNiIgd2lkdGg9IjEwMDAiIGhlaWdodD0iOCIgZmlsbD0iIzAwMCIvPjxsaW5lIHgxPSIwIiB5MT0iMzAiIHgyPSIxMDAwIiB5Mj0iMzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIxNCAxMCIvPjxnIGNsYXNzPSJmbG9hdCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAwLDMwKSI+PGcgY2xhc3M9InR3aW5rbGUiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MHMiPjxwYXRoIGQ9Ik0wLC0xNCBMMy4xLC0zLjEgTDE0LDAgTDMuMSwzLjEgTDAsMTQgTC0zLjEsMy4xIEwtMTQsMCBMLTMuMSwtMy4xIFoiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3MDAsMzApIj48ZyBjbGFzcz0idHdpbmtsZSIgc3R5bGU9ImFuaW1hdGlvbi1kZWxheToxcyI+PHBhdGggZD0iTTAsLTE0IEwzLjEsLTMuMSBMMTQsMCBMMy4xLDMuMSBMMCwxNCBMLTMuMSwzLjEgTC0xNCwwIEwtMy4xLC0zLjEgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9nPjwvZz48cG9seWdvbiBwb2ludHM9IjQwMCw2IDYwMCw2IDYyMCw1NCAzODAsNTQiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI1Ii8+PHRleHQgeD0iNTAwIiB5PSI0MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkltcGFjdCwnQXJpYWwgQmxhY2snLCdBcmlhbCBOYXJyb3cgQm9sZCcsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgbGV0dGVyLXNwYWNpbmc9IjQiPlRVUk4gVEhFIFBBR0U8dHNwYW4gY2xhc3M9ImJsaW5rIj4g4pa2PC90c3Bhbj48L3RleHQ+PC9zdmc+" alt=""/>
 
+<div class="ptz2" data-pt="quests" aria-hidden="true"></div>
 <!-- SCENE 5 / QUEST -->
 <section id="quests" class="scene scene-quest"><div class="scene-bg"></div><span class="qt-bgnum" aria-hidden="true">05</span><div class="qt-sweep" aria-hidden="true"></div><div class="wrap">
 <div class="qt-head">
@@ -1055,6 +1096,7 @@ html.js-pt #ptCover{display:block}
 <article class="qt-card qt-third" data-row="3"><p class="qt-badge">QUEST 08</p><h3 class="qt-name">Open-Source — cubrid-lab</h3><p class="qt-body">Three PRs to cubrid-lab projects: pycubrid #1300 (approved), cubrid-mcp-server #590 (approved), cubrid-cookbook-python #589.</p><div class="qt-tags"><span class="qt-tag">Open Source</span><span class="qt-tag">Python</span></div><div class="qt-links"><a href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub Profile ↗</a></div></article>
 </div></div></section>
 
+<div class="ptz2" data-pt="research" aria-hidden="true"></div>
 <!-- SCENE 6 / RESEARCH -->
 <section id="research" class="scene scene-research"><div class="scene-bg"></div><span class="rs-bgnum" aria-hidden="true">06</span><div class="rs-sweep" aria-hidden="true"></div><div class="wrap">
 <div class="rs-head">
@@ -1077,6 +1119,7 @@ html.js-pt #ptCover{display:block}
 </article>
 </div></section>
 
+<div class="ptz2" data-pt="fame" aria-hidden="true"></div>
 <!-- SCENE 7 / FAME -->
 <section id="fame" class="scene scene-fame"><div class="scene-bg"></div><span class="fm-bgnum" aria-hidden="true">07</span><div class="fm-sweep" aria-hidden="true"></div><div class="wrap">
 <div class="fm-head">
@@ -1099,6 +1142,7 @@ html.js-pt #ptCover{display:block}
 </div></section>
 <img class="divider" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDYwIiB3aWR0aD0iMTAwJSI+PGRlZnM+CjxwYXR0ZXJuIGlkPSJkb3RzIiB3aWR0aD0iOSIgaGVpZ2h0PSI5IiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoMzApIj48Y2lyY2xlIGN4PSI0LjUiIGN5PSI0LjUiIHI9IjEuNyIgZmlsbD0iIzAwMCIvPjwvcGF0dGVybj4KPHBhdHRlcm4gaWQ9ImRvdHMyIiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoNDUpIj48Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS4yIiBmaWxsPSIjZmZmIi8+PC9wYXR0ZXJuPgo8cGF0dGVybiBpZD0iaGF0Y2giIHdpZHRoPSI3IiBoZWlnaHQ9IjciIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0MCkiPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSI3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMS42Ii8+PC9wYXR0ZXJuPgo8bGluZWFyR3JhZGllbnQgaWQ9ImZhZGUiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMCIvPjwvbGluZWFyR3JhZGllbnQ+CjxtYXNrIGlkPSJtIj48cmVjdCB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9InVybCgjZmFkZSkiLz48L21hc2s+CjwvZGVmcz48c3R5bGU+Cip7dHJhbnNmb3JtLWJveDpmaWxsLWJveH0KQGtleWZyYW1lcyBkcmlmdHtmcm9te3RyYW5zZm9ybTp0cmFuc2xhdGUoMCwwKX10b3t0cmFuc2Zvcm06dHJhbnNsYXRlKDE4cHgsOXB4KX19CkBrZXlmcmFtZXMgcHVsc2V7MCUsMTAwJXt0cmFuc2Zvcm06c2NhbGUoMSl9NTAle3RyYW5zZm9ybTpzY2FsZSgxLjA2KX19CkBrZXlmcmFtZXMgcG9wezAlLDEwMCV7dHJhbnNmb3JtOnNjYWxlKDEpIHJvdGF0ZSgwKX01MCV7dHJhbnNmb3JtOnNjYWxlKDEuMTIpIHJvdGF0ZSgzZGVnKX19CkBrZXlmcmFtZXMgc2hha2V7MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9MjUle3RyYW5zZm9ybTp0cmFuc2xhdGUoMnB4LC0ycHgpfTc1JXt0cmFuc2Zvcm06dHJhbnNsYXRlKC0ycHgsMnB4KX19CkBrZXlmcmFtZXMgYmxpbmt7MCUsNDkle29wYWNpdHk6MX01MCUsMTAwJXtvcGFjaXR5OjB9fQpAa2V5ZnJhbWVzIHNwaW57dG97dHJhbnNmb3JtOnJvdGF0ZSgzNjBkZWcpfX0KQGtleWZyYW1lcyBzcGlucnt0b3t0cmFuc2Zvcm06cm90YXRlKC0zNjBkZWcpfX0KQGtleWZyYW1lcyBmbG9hdHswJSwxMDAle3RyYW5zZm9ybTp0cmFuc2xhdGVZKDApfTUwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgtMTJweCl9fQpAa2V5ZnJhbWVzIHR3aW5rbGV7MCUsMTAwJXtvcGFjaXR5Oi4xO3RyYW5zZm9ybTpzY2FsZSguMyl9NTAle29wYWNpdHk6MTt0cmFuc2Zvcm06c2NhbGUoMSl9fQpAa2V5ZnJhbWVzIGV5ZWJsaW5rezAlLDkyJSwxMDAle3RyYW5zZm9ybTpzY2FsZVkoMSl9OTUle3RyYW5zZm9ybTpzY2FsZVkoLjA3KX19CkBrZXlmcmFtZXMgY292ZXJ7MCUsNSV7dHJhbnNmb3JtOnNjYWxlWCgxKX0zMCUsOTIle3RyYW5zZm9ybTpzY2FsZVgoMCl9MTAwJXt0cmFuc2Zvcm06c2NhbGVYKDEpfX0KQGtleWZyYW1lcyBzZWdpbnswJSw2JXtvcGFjaXR5OjB9MTQlLDg2JXtvcGFjaXR5OjF9MTAwJXtvcGFjaXR5OjB9fQpAa2V5ZnJhbWVzIG1hcnF7dG97dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTE1MDBweCl9fQpAa2V5ZnJhbWVzIG1hcnFye2Zyb217dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTE1MDBweCl9dG97dHJhbnNmb3JtOnRyYW5zbGF0ZVgoMCl9fQpAa2V5ZnJhbWVzIHN3ZWVwezAlLDU1JXt0cmFuc2Zvcm06dHJhbnNsYXRlWCgtMzIwcHgpIHNrZXdYKC0yMGRlZyl9MTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWCg0MjBweCkgc2tld1goLTIwZGVnKX19CkBrZXlmcmFtZXMgd2F2ZXswJXt0cmFuc2Zvcm06c2NhbGUoLjU1KTtvcGFjaXR5Oi44NX0xMDAle3RyYW5zZm9ybTpzY2FsZSgxLjcpO29wYWNpdHk6MH19CkBrZXlmcmFtZXMgc3dheXswJSwxMDAle3RyYW5zZm9ybTpyb3RhdGUoLTZkZWcpfTUwJXt0cmFuc2Zvcm06cm90YXRlKDdkZWcpfX0KQGtleWZyYW1lcyBrZXl7MCUsMTAwJXtvcGFjaXR5Oi4xNX01MCV7b3BhY2l0eToxfX0KQGtleWZyYW1lcyBmbGFzaHswJSw5MCUsMTAwJXtvcGFjaXR5OjB9OTMle29wYWNpdHk6Ljg1fTk2JXtvcGFjaXR5OjB9OTgle29wYWNpdHk6LjZ9fQpAa2V5ZnJhbWVzIGdsaXRjaHswJSw5MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9OTIle3RyYW5zZm9ybTp0cmFuc2xhdGUoLTVweCwxcHgpfTk1JXt0cmFuc2Zvcm06dHJhbnNsYXRlKDVweCwtMXB4KX05NyV7dHJhbnNmb3JtOnRyYW5zbGF0ZSgtMnB4LDApfX0KQGtleWZyYW1lcyBib3VuY2V7MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlWSgwKX01MCV7dHJhbnNmb3JtOnRyYW5zbGF0ZVkoN3B4KX19CkBrZXlmcmFtZXMgbG9va3swJSw0MCUsMTAwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDAsMCl9NTAlLDgwJXt0cmFuc2Zvcm06dHJhbnNsYXRlKDlweCwtNXB4KX19CkBrZXlmcmFtZXMgZ3Jvd3swJSw4JXt0cmFuc2Zvcm06c2NhbGVYKDApfTQwJSw5MCV7dHJhbnNmb3JtOnNjYWxlWCgxKX0xMDAle3RyYW5zZm9ybTpzY2FsZVgoMCl9fQouZHJpZnR7YW5pbWF0aW9uOmRyaWZ0IDNzIGVhc2UtaW4tb3V0IGluZmluaXRlIGFsdGVybmF0ZX0KLnB1bHNle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpwdWxzZSAyLjJzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoucG9we3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpwb3AgMS4xcyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLnNoYWtle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpzaGFrZSAuNDVzIHN0ZXBzKDIpIGluZmluaXRlfQouYmxpbmt7YW5pbWF0aW9uOmJsaW5rIDFzIHN0ZXBzKDEpIGluZmluaXRlfQouc3Bpbnt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246c3BpbiA0MHMgbGluZWFyIGluZmluaXRlfQouc3BpbnJ7dHJhbnNmb3JtLW9yaWdpbjpjZW50ZXI7YW5pbWF0aW9uOnNwaW5yIDYwcyBsaW5lYXIgaW5maW5pdGV9Ci5mbG9hdHt0cmFuc2Zvcm0tb3JpZ2luOmNlbnRlcjthbmltYXRpb246ZmxvYXQgMy40cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLnR3aW5rbGV7dHJhbnNmb3JtLW9yaWdpbjpjZW50ZXI7YW5pbWF0aW9uOnR3aW5rbGUgMi40cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLmJsaW5rZXlle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjpleWVibGluayA1cyBpbmZpbml0ZX0KLmNvdnt0cmFuc2Zvcm0tb3JpZ2luOnJpZ2h0IGNlbnRlcjthbmltYXRpb246Y292ZXIgOXMgc3RlcHMoMjQpIGluZmluaXRlfQouc2Vne2FuaW1hdGlvbjpzZWdpbiA2cyBlYXNlLW91dCBpbmZpbml0ZX0KLm1hcnF7YW5pbWF0aW9uOm1hcnEgMjhzIGxpbmVhciBpbmZpbml0ZX0ubWFycXJ7YW5pbWF0aW9uOm1hcnFyIDM0cyBsaW5lYXIgaW5maW5pdGV9Ci5zd2VlcHthbmltYXRpb246c3dlZXAgNXMgZWFzZS1pbi1vdXQgaW5maW5pdGV9Ci53YXZle3RyYW5zZm9ybS1vcmlnaW46Y2VudGVyO2FuaW1hdGlvbjp3YXZlIDIuNHMgZWFzZS1vdXQgaW5maW5pdGV9Ci5zd2F5e3RyYW5zZm9ybS1vcmlnaW46Ym90dG9tIGNlbnRlcjthbmltYXRpb246c3dheSAyLjhzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoua2V5e2FuaW1hdGlvbjprZXkgLjlzIHN0ZXBzKDEpIGluZmluaXRlfQouZmxhc2h7YW5pbWF0aW9uOmZsYXNoIDdzIGluZmluaXRlfQouZ2xpdGNoe2FuaW1hdGlvbjpnbGl0Y2ggNnMgaW5maW5pdGV9Ci5ib3VuY2V7YW5pbWF0aW9uOmJvdW5jZSAxLjFzIGVhc2UtaW4tb3V0IGluZmluaXRlfQoubG9va3thbmltYXRpb246bG9vayA2cyBlYXNlLWluLW91dCBpbmZpbml0ZX0KLmdyb3d7dHJhbnNmb3JtLW9yaWdpbjpsZWZ0IGNlbnRlcjthbmltYXRpb246Z3JvdyA1cyBlYXNlLW91dCBpbmZpbml0ZX0KPC9zdHlsZT48cmVjdCB5PSIyNiIgd2lkdGg9IjEwMDAiIGhlaWdodD0iOCIgZmlsbD0iIzAwMCIvPjxsaW5lIHgxPSIwIiB5MT0iMzAiIHgyPSIxMDAwIiB5Mj0iMzAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIxNCAxMCIvPjxnIGNsYXNzPSJmbG9hdCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAwLDMwKSI+PGcgY2xhc3M9InR3aW5rbGUiIHN0eWxlPSJhbmltYXRpb24tZGVsYXk6MHMiPjxwYXRoIGQ9Ik0wLC0xNCBMMy4xLC0zLjEgTDE0LDAgTDMuMSwzLjEgTDAsMTQgTC0zLjEsMy4xIEwtMTQsMCBMLTMuMSwtMy4xIFoiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvZz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3MDAsMzApIj48ZyBjbGFzcz0idHdpbmtsZSIgc3R5bGU9ImFuaW1hdGlvbi1kZWxheToxcyI+PHBhdGggZD0iTTAsLTE0IEwzLjEsLTMuMSBMMTQsMCBMMy4xLDMuMSBMMCwxNCBMLTMuMSwzLjEgTC0xNCwwIEwtMy4xLC0zLjEgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9nPjwvZz48cG9seWdvbiBwb2ludHM9IjQwMCw2IDYwMCw2IDYyMCw1NCAzODAsNTQiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI1Ii8+PHRleHQgeD0iNTAwIiB5PSI0MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkltcGFjdCwnQXJpYWwgQmxhY2snLCdBcmlhbCBOYXJyb3cgQm9sZCcsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgbGV0dGVyLXNwYWNpbmc9IjQiPlRVUk4gVEhFIFBBR0U8dHNwYW4gY2xhc3M9ImJsaW5rIj4g4pa2PC90c3Bhbj48L3RleHQ+PC9zdmc+" alt=""/>
 
+<div class="ptz2" data-pt="journey" aria-hidden="true"></div>
 <!-- SCENE 8 / JOURNEY -->
 <section id="journey" class="scene scene-journey"><div class="scene-bg"></div><span class="jn-bgnum" aria-hidden="true">08</span><div class="jn-sweep" aria-hidden="true"></div><div class="wrap">
 <div class="jn-head">
@@ -1113,6 +1157,7 @@ html.js-pt #ptCover{display:block}
 <article class="jn-entry"><span class="jn-marker" aria-hidden="true"></span><div class="jn-card"><p class="jn-when">Mar – Oct 2025 · Remote</p><h3 class="jn-name">IISPPER</h3><p class="jn-body">Web Development Intern.</p></div></article>
 </div></div></section>
 
+<div class="ptz2" data-pt="contact" aria-hidden="true"></div>
 <!-- SCENE 9 / CONTACT -->
 <section id="contact" class="scene scene-contact"><div class="scene-bg"></div><span class="na-bgnum" aria-hidden="true">09</span><div class="na-sweep" aria-hidden="true"></div><div class="wrap">
 <div class="na-head">
@@ -1767,7 +1812,9 @@ tl.to(sweep,{opacity:.22,duration:.2,ease:'none'},1.35)
 .to(sweep,{x:'360%',duration:.9,ease:'power2.inOut'},1.35)
 .to(sweep,{opacity:0,duration:.25,ease:'none'},2.0);
 }
-ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+var entryST=ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+/* page-turn registry — the generic boundary engine drives this same timeline from its handoff and disables entryST while armed */
+(window.__sceneEntries=window.__sceneEntries||{})['power']={play:function(){tl.play(0);},snap:function(){tl.progress(1);},reset:function(){tl.pause(0);},st:entryST};
 /* already scrolled past on load / restore → land on the final state */
 (function(){var r=sec.getBoundingClientRect();if(r.bottom<0)tl.progress(1);})();
 /* background numeral parallax — at most 6px of travel, desktop only */
@@ -1807,7 +1854,9 @@ tl.to([eyebrow,dot,seal],{y:0,autoAlpha:1,duration:.18,ease:'power2.out'},0)
 .to(panels,{y:0,autoAlpha:1,duration:.45,ease:'power3.out',stagger:.05},0.12)
 .to(items,{y:0,autoAlpha:1,duration:.30,ease:'power3.out',stagger:.035},0.12)
 .to(sub,{autoAlpha:1,duration:.30,ease:'power2.out'},0.45);
-ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+var entryST=ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+/* page-turn registry — the generic boundary engine drives this same timeline from its handoff and disables entryST while armed */
+(window.__sceneEntries=window.__sceneEntries||{})['skills']={play:function(){tl.play(0);},snap:function(){tl.progress(1);},reset:function(){tl.pause(0);},st:entryST};
 /* already scrolled past on load / restore → land on the final state */
 (function(){var r=sec.getBoundingClientRect();if(r.bottom<0)tl.progress(1);})();
 /* background numeral parallax — at most 6px of travel, desktop only */
@@ -1847,7 +1896,7 @@ var head=gsap.timeline({paused:true});
 head.to([eyebrow,dot,seal],{y:0,autoAlpha:1,duration:.18,ease:'power2.out'},0)
 .to(h2,{clipPath:'inset(0 0% 0 0)',duration:.65,ease:'power4.out'},0.02)
 .to(sub,{autoAlpha:1,duration:.30,ease:'power2.out'},0.45);
-ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){head.play(0);}});
+var headST=ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){head.play(0);}});
 /* one light sweep, fired once the first row has settled */
 var sweepPlayed=false;
 function playSweep(){
@@ -1867,6 +1916,8 @@ tl.to(cards,{y:0,autoAlpha:1,duration:.45,ease:'power3.out',stagger:.07},0);
 rowTls.push(tl);
 ScrollTrigger.create({trigger:cards[0],start:'top 88%',once:true,onEnter:function(){tl.play(0);}});
 });
+/* page-turn registry — the generic boundary engine drives the header + first-row timelines from its handoff and disables headST while armed; rows 2–3 keep their own triggers below the fold */
+(window.__sceneEntries=window.__sceneEntries||{})['quests']={play:function(){head.play(0);if(rowTls[0])rowTls[0].play(0);},snap:function(){head.progress(1);rowTls.forEach(function(t){t.progress(1);});sweepPlayed=true;},reset:function(){head.pause(0);if(rowTls[0])rowTls[0].pause(0);},st:headST};
 /* already scrolled past on load / restore → land on the final state */
 (function(){var r=sec.getBoundingClientRect();if(r.bottom<0){head.progress(1);rowTls.forEach(function(t){t.progress(1);});sweepPlayed=true;}})();
 /* background numeral parallax — at most 5px of travel, desktop only */
@@ -1912,7 +1963,9 @@ tl.set(sweep,{x:'-180%',skewX:-18,opacity:0},0.75)
 .to(sweep,{x:'360%',duration:.9,ease:'power2.inOut'},0.75)
 .to(sweep,{opacity:0,duration:.2,ease:'none'},1.45);
 }
-ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+var entryST=ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+/* page-turn registry — the generic boundary engine drives this same timeline from its handoff and disables entryST while armed */
+(window.__sceneEntries=window.__sceneEntries||{})['research']={play:function(){tl.play(0);},snap:function(){tl.progress(1);},reset:function(){tl.pause(0);},st:entryST};
 /* already scrolled past on load / restore → land on the final state */
 (function(){var r=sec.getBoundingClientRect();if(r.bottom<0)tl.progress(1);})();
 /* background numeral parallax — at most 5px of travel, desktop only */
@@ -1960,7 +2013,9 @@ tl.set(sweep,{x:'-180%',skewX:-18,opacity:0},1.15)
 .to(sweep,{x:'360%',duration:.9,ease:'power2.inOut'},1.15)
 .to(sweep,{opacity:0,duration:.2,ease:'none'},1.85);
 }
-ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+var entryST=ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+/* page-turn registry — the generic boundary engine drives this same timeline from its handoff and disables entryST while armed */
+(window.__sceneEntries=window.__sceneEntries||{})['fame']={play:function(){tl.play(0);},snap:function(){tl.progress(1);},reset:function(){tl.pause(0);},st:entryST};
 /* already scrolled past on load / restore → land on the final state */
 (function(){var r=sec.getBoundingClientRect();if(r.bottom<0)tl.progress(1);})();
 /* background numeral parallax — at most 5px of travel, desktop only */
@@ -2008,7 +2063,9 @@ tl.set(sweep,{x:'-180%',skewX:-18,opacity:0},1.05)
 .to(sweep,{x:'360%',duration:.9,ease:'power2.inOut'},1.05)
 .to(sweep,{opacity:0,duration:.2,ease:'none'},1.75);
 }
-ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+var entryST=ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+/* page-turn registry — the generic boundary engine drives this same timeline from its handoff and disables entryST while armed */
+(window.__sceneEntries=window.__sceneEntries||{})['journey']={play:function(){tl.play(0);},snap:function(){tl.progress(1);},reset:function(){tl.pause(0);},st:entryST};
 /* already scrolled past on load / restore → land on the final state */
 (function(){var r=sec.getBoundingClientRect();if(r.bottom<0)tl.progress(1);})();
 /* background numeral parallax — at most 5px of travel, desktop only */
@@ -2063,7 +2120,9 @@ tl.set(sweep,{x:'-180%',skewX:-18,opacity:0},1.35)
 .to(sweep,{x:'360%',duration:.9,ease:'power2.inOut'},1.35)
 .to(sweep,{opacity:0,duration:.2,ease:'none'},2.05);
 }
-ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+var entryST=ScrollTrigger.create({trigger:sec,start:'top 80%',once:true,onEnter:function(){tl.play(0);}});
+/* page-turn registry — the generic boundary engine drives this same timeline from its handoff and disables entryST while armed */
+(window.__sceneEntries=window.__sceneEntries||{})['contact']={play:function(){tl.play(0);},snap:function(){tl.progress(1);},reset:function(){tl.pause(0);},st:entryST};
 /* already scrolled past on load / restore → land on the final state */
 (function(){var r=sec.getBoundingClientRect();if(r.bottom<0)tl.progress(1);})();
 /* background numeral parallax — at most 5px of travel, desktop only */
@@ -2118,6 +2177,186 @@ btn.disabled=false;
 btn.textContent=originalLabel;
 });
 });
+})();
+</script>
+<script>
+/* ============ PAGE TURN — Scenes 02→03 … 08→09 ============
+   The Scene 01→02 machinery generalised to every later chapter boundary.
+   ONE shared fixed black cover (same pre-rendered torn-edge SVG, same
+   classes) is driven by a scrubbed ~60svh zone in front of each of
+   Scenes 3–9. Per boundary, mirroring Scene 2 exactly: progress
+   0→0.38 wipe in · 0.38→0.62 hold with a timed title beat (the INCOMING
+   chapter's own CHAPTER eyebrow, title slam and red hanko) · handoff at
+   0.64 flying the card title into the incoming section's real H2 slot ·
+   the section's own entry timeline — the exact one its scene script
+   built and registered in window.__sceneEntries — playing from 0.70 as
+   the panel assembly · wipe out to 1. While this engine is armed, each
+   scene's own entry ScrollTrigger is disabled, so nothing can
+   double-fire or fight the handoff; Quest rows 2–3 sit below the fold
+   and keep their own triggers. Safety paths mirror Scene 2: endState
+   on leave / load-past / focus entry, a scrolled-past scroll snap, and
+   a quiet re-arm at progress 0. Any failure removes html.js-pt2 (zones
+   collapse to 0, cover hides) and re-enables every scene trigger, so
+   the page falls back to its previous behaviour; no-JS, no-GSAP and
+   prefers-reduced-motion never arm the system at all. */
+(function(){
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduce)return;
+if(!window.gsap||!window.ScrollTrigger)return;
+var mover=document.getElementById('ptMover2');
+var settle=document.getElementById('ptSettle2');
+var card=document.getElementById('ptCard2');
+var flash=document.getElementById('ptFlash2');
+if(!mover||!card)return;
+var eyebrow=card.querySelector('.pt-eyebrow');
+var titleWrap=card.querySelector('.pt-titleWrap');
+var titleEl=card.querySelector('.pt-title');
+var burst=card.querySelector('.pt-burst');
+var seal=card.querySelector('.pt-seal');
+var sfx=document.getElementById('ptSfx2');
+var rings=document.getElementById('ptRings2');
+if(!eyebrow||!titleWrap||!titleEl||!seal)return;
+var beatExtras=[eyebrow,titleWrap,seal,burst];if(sfx)beatExtras.push(sfx);if(rings)beatExtras.push(rings);
+var CONFIG=[
+{key:'power',num:'03',title:'POWER LEVELS',h2:'.pw-h2'},
+{key:'skills',num:'04',title:'SPECIAL MOVES',h2:'.mv-h2'},
+{key:'quests',num:'05',title:'QUEST LOG',h2:'.qt-h2'},
+{key:'research',num:'06',title:'RESEARCH SCROLL',h2:'.rs-h2'},
+{key:'fame',num:'07',title:'HALL OF FAME',h2:'.fm-h2'},
+{key:'journey',num:'08',title:'THE JOURNEY SO FAR',h2:'.jn-h2'},
+{key:'contact',num:'09',title:'NEXT ARC',h2:'.na-h2'}
+];
+var disabledSTs=[],ptSTs=[],cfgs=[],activeCfg=null;
+function clearCard(){
+gsap.killTweensOf(card);
+gsap.set(card,{autoAlpha:0,x:0,y:0,scale:1});
+gsap.set(beatExtras,{clearProps:'transform,opacity,visibility'});
+if(flash)gsap.set(flash,{autoAlpha:0});
+}
+try{
+gsap.registerPlugin(ScrollTrigger);
+var entries=window.__sceneEntries||{};
+document.documentElement.classList.add('js-pt2');
+CONFIG.forEach(function(c){
+var sec=document.getElementById(c.key);
+var zone=document.querySelector('.ptz2[data-pt="'+c.key+'"]');
+var entry=entries[c.key];
+var h2el=sec?sec.querySelector(c.h2):null;
+if(!sec||!zone||!entry||!h2el)return; /* this scene keeps its own entry trigger */
+var cfg={key:c.key,num:c.num,title:c.title,sec:sec,zone:zone,entry:entry,h2:h2el,beatState:'idle',beatTl:null,handed:false,assembled:false,snapped:false,lastDir:1,proxy:{p:0}};
+cfgs.push(cfg);
+function fireBeat(){
+if(cfg.beatState!=='idle')return;cfg.beatState='playing';activeCfg=cfg;
+eyebrow.textContent='CHAPTER '+cfg.num;
+titleEl.textContent=cfg.title;
+seal.textContent=cfg.num;
+var seen=false;try{seen=sessionStorage.getItem('mpPtSeen'+cfg.num)==='1';}catch(e){}
+var tl=gsap.timeline({onComplete:function(){cfg.beatState='shown';try{sessionStorage.setItem('mpPtSeen'+cfg.num,'1');}catch(e){}}});
+tl.set(card,{autoAlpha:1,x:0,y:0,scale:1})
+.fromTo(eyebrow,{y:12,autoAlpha:0},{y:0,autoAlpha:1,duration:.12,ease:'power2.out'},0.12)
+.fromTo(titleWrap,{scale:1.32,autoAlpha:0},{scale:1,autoAlpha:1,duration:.19,ease:'power3.out'},0.17)
+.fromTo(burst,{autoAlpha:0},{autoAlpha:.24,duration:.06,yoyo:true,repeat:1,repeatDelay:.03,ease:'power1.inOut'},0.19)
+.fromTo(seal,{scale:1.25,autoAlpha:0,rotate:-9},{scale:1,autoAlpha:1,rotate:-4,duration:.18,ease:'power3.out'},0.31)
+.fromTo(settle,{y:0},{y:2,duration:.08,yoyo:true,repeat:1,ease:'power1.inOut'},0.31);
+if(rings)tl.fromTo(rings,{scale:.55,autoAlpha:0},{scale:1.18,autoAlpha:1,duration:.38,ease:'power2.out'},0.17).to(rings,{autoAlpha:0,duration:.22,ease:'power1.out'},0.5);
+if(sfx)tl.fromTo(sfx,{scale:.45,rotate:-22,autoAlpha:0},{scale:1,rotate:-9,autoAlpha:1,duration:.18,ease:'back.out(2.2)'},0.2).to(sfx,{autoAlpha:0,y:-10,duration:.2,ease:'power1.out'},0.52);
+tl.timeScale(seen?1.6:1);
+cfg.beatTl=tl;
+}
+function quietBeat(){
+if(cfg.beatState==='idle')return;
+if(cfg.beatTl){cfg.beatTl.kill();cfg.beatTl=null;}
+cfg.beatState='idle';
+if(activeCfg===cfg){
+gsap.killTweensOf(card);if(flash)gsap.set(flash,{autoAlpha:0});
+gsap.to(card,{autoAlpha:0,duration:.2,ease:'power1.out',onComplete:function(){if(activeCfg===cfg)gsap.set(beatExtras,{clearProps:'transform,opacity,visibility'});}});
+}
+}
+function doHandoff(){
+if(cfg.handed)return;cfg.handed=true;
+if(flash)gsap.fromTo(flash,{autoAlpha:0},{autoAlpha:.55,duration:.07,yoyo:true,repeat:1,ease:'power1.inOut'});
+var hr=cfg.h2.getBoundingClientRect(),tr=titleWrap.getBoundingClientRect();
+var canMove=tr.width>0&&hr.top>-20&&hr.top<window.innerHeight*1.05;
+if(canMove){
+var dx=(hr.left+hr.width/2)-(tr.left+tr.width/2),dy=(hr.top+hr.height/2)-(tr.top+tr.height/2);
+var sc=Math.max(.3,Math.min(1,hr.height/Math.max(tr.height,1)));
+gsap.to(card,{x:dx,y:dy,scale:sc,duration:.5,ease:'power2.inOut'});
+gsap.to(card,{autoAlpha:0,duration:.25,delay:.3,ease:'power1.out'});
+}else{
+gsap.to(card,{autoAlpha:0,duration:.3,ease:'power1.out'});
+}
+}
+function endState(){
+mover.style.transform='translate3d(-112%,0,0)';mover.classList.remove('active');
+if(cfg.beatTl){cfg.beatTl.kill();cfg.beatTl=null;}
+cfg.beatState='idle';
+if(activeCfg===cfg)clearCard();
+if(!cfg.assembled){cfg.assembled=true;cfg.entry.snap();}
+cfg.handed=true;
+}
+function startState(){
+mover.style.transform='translate3d(112%,0,0)';mover.classList.remove('active');
+if(cfg.beatTl){cfg.beatTl.kill();cfg.beatTl=null;}
+cfg.beatState='idle';
+if(activeCfg===cfg)clearCard();
+if(cfg.assembled){cfg.assembled=false;cfg.handed=false;cfg.entry.reset();}
+}
+function render(p,dir){
+if(cfg.snapped){if(p<=0.02||p>=0.995){cfg.snapped=false;}else{mover.style.transform='translate3d(-112%,0,0)';return;}}
+var x;
+if(p<0.38)x=112*(1-p/0.38);else if(p<=0.62)x=0;else x=-112*((p-0.62)/0.38);
+mover.style.transform='translate3d('+x.toFixed(2)+'%,0,0)';
+mover.classList.toggle('active',p>0&&p<1);
+if(p>0&&p<1)activeCfg=cfg;
+if(p>=0.38&&dir>=0&&cfg.beatState==='idle'&&!cfg.handed)fireBeat();
+if(p<0.34&&cfg.beatState!=='idle')quietBeat();
+if(p>=0.64&&cfg.beatState==='shown')doHandoff();
+if(p>=0.70&&!cfg.assembled){cfg.assembled=true;cfg.entry.play();}
+if(p>=0.995){endState();return;}
+if(p<=0.02&&cfg.assembled){
+cfg.assembled=false;cfg.handed=false;cfg.entry.reset();
+if(activeCfg===cfg)clearCard();
+cfg.beatState='idle';
+}
+}
+cfg.endState=endState;
+var tween=gsap.to(cfg.proxy,{p:1,ease:'none',
+onUpdate:function(){render(cfg.proxy.p,cfg.lastDir);},
+scrollTrigger:{
+trigger:zone,start:'top 45%',end:'bottom 45%',scrub:0.4,
+onUpdate:function(self){cfg.lastDir=self.direction;},
+onLeave:function(){endState();},
+onEnterBack:function(){if(!cfg.assembled){cfg.assembled=true;cfg.entry.snap();cfg.handed=true;}},
+onLeaveBack:function(){startState();}
+}});
+ptSTs.push(tween.scrollTrigger);
+/* the handoff now owns this scene's entry — disable its own trigger so the two never compete */
+if(entry.st){entry.st.disable();disabledSTs.push(entry.st);}
+render(0,1);
+/* scroll restoration / load already past this zone → end state immediately */
+if((window.scrollY||0)>zone.getBoundingClientRect().bottom+(window.scrollY||0))endState();
+});
+if(!cfgs.length){document.documentElement.classList.remove('js-pt2');return;}
+/* focus entering a scene mid-transition snaps that boundary to its end state */
+document.addEventListener('focusin',function(e){
+if(!e.target||!e.target.closest)return;
+cfgs.forEach(function(cfg){if(e.target.closest('#'+cfg.key)&&cfg.proxy.p>0.02&&cfg.proxy.p<0.99){cfg.snapped=true;cfg.endState();}});
+});
+/* scrolled-past fast-forward: a scene left fully above the viewport can never sit hidden */
+window.addEventListener('scroll',function(){
+cfgs.forEach(function(cfg){
+if(cfg.assembled)return;
+var r=cfg.sec.getBoundingClientRect();
+if(r.bottom<0)cfg.endState();
+});
+},{passive:true});
+ScrollTrigger.refresh();
+}catch(err){
+/* any failure: disarm everything — zones collapse, cover hides, scenes return to their own triggers */
+document.documentElement.classList.remove('js-pt2');
+disabledSTs.forEach(function(st){try{st.enable();}catch(e){}});
+ptSTs.forEach(function(st){try{st.kill();}catch(e){}});
+}
 })();
 </script>
 </body>
