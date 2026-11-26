@@ -278,7 +278,7 @@ h2.title .stroke{color:transparent;-webkit-text-stroke:2px #fff}
 .gl-canvasWrap canvas{display:block;width:100%;height:100%}
 .gl-vignette{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse at center,transparent 52%,rgba(0,0,0,.6) 100%)}
 .gl-speed{position:absolute;inset:0;z-index:2;opacity:0;background:repeating-conic-gradient(from 0deg at 50% 50%,transparent 0deg 5deg,rgba(242,238,229,.55) 5deg 6deg,transparent 6deg 13deg);-webkit-mask-image:radial-gradient(circle at 50% 50%,transparent 54%,#000 76%,transparent 93%);mask-image:radial-gradient(circle at 50% 50%,transparent 54%,#000 76%,transparent 93%)}
-.gl-overlay{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:7.3vh 20px 0;background:radial-gradient(ellipse 78% 52% at 50% 27%,rgba(0,0,0,.68),rgba(0,0,0,0) 72%),linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0) 46%)}
+.gl-overlay{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:calc(7.3vh + 5px) 20px 0;background:radial-gradient(ellipse 78% 52% at 50% 27%,rgba(0,0,0,.68),rgba(0,0,0,0) 72%),linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0) 46%)}
 .gl-kicker{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:#080808;background:var(--gl-gold);padding:6px 14px 6px 18px;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.85);font-size:clamp(11px,1.6vw,14px);margin:0}
 .gl-title{font-family:Anton,Impact,"Arial Narrow",sans-serif;font-weight:400;font-size:clamp(48px,9.3vw,112px);line-height:.92;color:var(--gl-ivory);margin:20px 0 12px;text-transform:uppercase;text-shadow:6px 6px 0 rgba(0,0,0,.9)}
 .gl-title .gl-red{color:var(--gl-red)}
@@ -289,6 +289,8 @@ h2.title .stroke{color:transparent;-webkit-text-stroke:2px #fff}
 @keyframes glBob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 .gl-progress{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:min(340px,72vw);height:7px;background:rgba(242,238,229,.18);z-index:4;transition:opacity .45s ease}
 .gl-progress i{display:block;height:100%;width:0;background:var(--gl-gold);opacity:1;box-shadow:0 0 10px rgba(213,163,67,.75)}
+@media(max-width:820px){.gl-progress{left:14px;transform:none}}
+@media(max-width:520px){.gl-progress{left:10px}}
 .gl-endBtns{position:absolute;left:50%;bottom:22vh;transform:translateX(-50%) translateY(14px);z-index:5;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;visibility:hidden;transition:opacity .5s ease,transform .5s ease,visibility .5s;pointer-events:none}
 .gl-endBtns.on{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .gl-btn{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:17px;color:var(--gl-ivory);background:rgba(5,5,6,.82);border:2.5px solid var(--gl-ivory);padding:13px 26px 13px 30px;text-decoration:none;box-shadow:6px 6px 0 rgba(0,0,0,.85);transition:transform .15s ease,background .15s ease,color .15s ease}
@@ -316,7 +318,7 @@ h2.title .stroke{color:transparent;-webkit-text-stroke:2px #fff}
 #hudTracker{transition:transform .3s ease}
 body.gl-ended #hudTracker{transform:translateY(-16px);background:rgba(5,5,6,.97)}
 @media(max-width:640px){.gl-fb-grid{grid-template-columns:1fr}.scene-gallery{height:430vh}.gl-hint{bottom:112px;font-size:13px}.gl-endBtns{flex-direction:column;flex-wrap:nowrap;gap:5px;align-items:stretch}.gl-btn{font-size:13px;padding:4px 10px;text-align:center;letter-spacing:.16em;white-space:nowrap;box-shadow:4px 4px 0 rgba(0,0,0,.85);width:100%}}
-@media(max-width:640px){#hudTracker{transition:transform .3s ease}body.gl-pinned #hudTracker{transform:translateY(-66px)}}
+@media(max-width:640px){#hudTracker{transition:transform .3s ease}body.gl-pinned #hudTracker{transform:translateY(-88px)}}
 @media(prefers-reduced-motion:reduce){.gl-hint .gl-arrow{animation:none}.gl-speed{display:none}}
 /* ============ SCENE 6 — RESEARCH SCROLL (Scene 2 design system) ============ */
 .scene-research{--rs-ivory:#F2EEE5;--rs-muted:#A8A39A;--rs-gold:#D5A343;--rs-red:#B52D32;--rs-line:#2A2A2A;background:#080808;padding:40px 0 32px}
@@ -944,6 +946,36 @@ html.js-pt2 #ptCover2{display:block}
 
 </style>
 <noscript><style>#splash{display:none}.reveal,.reveal-left,.reveal-right,.reveal-scale{opacity:1;transform:none}.wipe{clip-path:none}</style></noscript>
+
+<style>
+.navin{position:relative}
+.rm-toggle{position:absolute;top:12px;right:18px;background:transparent;border:1px solid #D5A343;color:#D5A343;font:600 11px/1 Arial,sans-serif;letter-spacing:.14em;padding:9px 12px;cursor:pointer;border-radius:2px;white-space:nowrap;z-index:60}
+@media (max-width:720px){.rm-toggle{top:8px;right:10px;font-size:10px;padding:7px 9px}}
+.rm-toggle:hover{background:#D5A343;color:#0B0B0F}
+body.rm-on .rm-toggle{background:#D5A343;color:#0B0B0F}
+.proof-strip{display:none}
+body.rm-on .proof-strip{display:block;background:#0B0B0F;border-bottom:3px solid #D5A343;padding:64px 20px 54px}
+.ps-in{max-width:1180px;margin:0 auto}
+.ps-kicker{color:#B52D32;letter-spacing:.24em;font-size:12px;margin:0 0 10px}
+.ps-title{color:#F2EEE5;font-size:30px;margin:0 0 12px}
+.ps-line{color:#CFC9BC;margin:0 0 8px;font-size:16px}
+.ps-projects{display:grid;gap:8px;margin:18px 0 22px}
+.ps-projects a{color:#F2EEE5;text-decoration:none;border:1px solid #2A2A2A;padding:10px 14px;background:rgba(255,255,255,.03)}
+.ps-projects a:hover{border-color:#D5A343}
+.ps-btns{display:flex;gap:10px;flex-wrap:wrap}
+body.rm-on .ptz2{height:0!important;min-height:0!important}
+body.rm-on img.divider{display:none!important}
+body.rm-on .scene-gallery{height:auto!important}
+body.rm-on .gl-pin{display:none!important}
+body.rm-on .gl-fallback{display:block;padding:76px 20px 60px;max-width:1180px;margin:0 auto}
+.rs-list{margin-top:34px;border:1px solid #2A2A2A;background:rgba(255,255,255,.03);padding:26px 28px}
+.rs-list-head{font-size:12px;letter-spacing:.22em;color:#D5A343;margin:0 0 8px}
+.rs-item{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;padding:10px 0;border-top:1px solid #1D1D22}
+.rs-item h4{margin:0;font-size:16px;color:#F2EEE5;flex:1 1 340px;font-weight:600}
+.rs-status{font-size:12px;letter-spacing:.06em;color:#B9B3A4;text-transform:uppercase}
+.rs-status a{color:#D5A343}
+section[id]{scroll-margin-top:115px}
+</style>
 </head>
 <body>
 <a class="skipLink" href="#file">Skip to content</a>
@@ -963,7 +995,7 @@ html.js-pt2 #ptCover2{display:block}
 <div class="progress" id="prog"></div>
 <canvas id="bg3d" aria-hidden="true"></canvas>
 <nav><div class="navin"><a class="logo" href="#top">ANKIT<b>.</b>PAL</a><div class="navlinks">
-<a href="#file">Character File</a><a href="#power">Power Levels</a><a href="#skills">Skills</a><a href="#quests">Quest Log</a><a href="#research">Research</a><a href="#fame">Hall of Fame</a><a href="#journey">Journey</a><a href="#contact">Contact</a>
+<a href="#file">Character File</a><a href="#power">Power Levels</a><a href="#skills">Skills</a><a href="#quests">Quest Log</a><a href="#research">Research</a><a href="#fame">Hall of Fame</a><a href="#journey">Journey</a><a href="#contact">Contact</a><a href="Ankit_Pal_Resume.pdf" download>Resume ↓</a><button id="rmToggle" class="rm-toggle" type="button" aria-pressed="false">RECRUITER MODE</button>
 </div></div></nav>
 <main id="top">
 
@@ -982,7 +1014,7 @@ html.js-pt2 #ptCover2{display:block}
 <p class="roleLine" aria-label="Roles: Full-Stack Developer, AI Engineer, Multi-Agent RAG Builder, Open-Source Contributor"><span class="typeWrap"><span class="typeSizer" aria-hidden="true">MULTI-AGENT RAG BUILDER</span><span class="typeLine"><span class="typeRole" aria-hidden="true">FULL-STACK DEVELOPER</span><span class="typeCursor" aria-hidden="true"></span></span></span></p>
 <p class="headline">Building intelligent AI products.</p>
 <p class="descriptor">Multi-Agent Systems · RAG · Applied AI</p>
-<div class="ctaRow"><a class="btn btn-gold" href="#quests">View Projects ↗</a><a class="btn btn-ghost" href="#contact">Contact Me ↗</a></div>
+<div class="ctaRow"><a class="btn btn-gold" href="#quests">View Projects ↗</a><a class="btn btn-ghost" href="#contact">Contact Me ↗</a><a class="btn btn-ghost" href="Ankit_Pal_Resume.pdf" download>Download Resume ↓</a></div>
 <p class="heroMeta">📍 Gurugram, Haryana, India &nbsp;·&nbsp; ✉️ ankit200211222@gmail.com &nbsp;·&nbsp; <a href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub ↗</a></p>
 </div>
 <div class="heroArt" id="heroArt">
@@ -1003,6 +1035,26 @@ html.js-pt2 #ptCover2{display:block}
 <div class="marquee" aria-hidden="true"><div>REACT ✦ NEXT.JS ✦ TYPESCRIPT ✦ NODE.JS ✦ PYTHON ✦ MULTI-AGENT RAG ✦ LLM AGENTS ✦ OPEN SOURCE ✦ REACT ✦ NEXT.JS ✦ TYPESCRIPT ✦ NODE.JS ✦ PYTHON ✦ MULTI-AGENT RAG ✦ LLM AGENTS ✦ OPEN SOURCE ✦&nbsp;</div></div>
 <div class="scrollCue" aria-hidden="true"><span>Scroll to Explore ↓</span><i></i></div>
 </header>
+<section id="proofStrip" class="proof-strip" aria-label="Recruiter summary — the 60-second version">
+<div class="ps-in">
+<p class="ps-kicker">RECRUITER MODE — THE 60-SECOND VERSION</p>
+<h2 class="ps-title">Ankit Pal — Full-Stack Developer · AI/ML</h2>
+<p class="ps-line">B.Tech CSE (AI &amp; ML), Class of 2026 · CGPA 8.5/10 · Gurugram, India · <b>Available immediately</b></p>
+<p class="ps-line">Experience: led a team of 8 interns on an AI legal-tech product at Young Thames · 4 roles in total</p>
+<p class="ps-line">Core stack: React · Next.js · TypeScript · Node.js · Python · FastAPI · PostgreSQL · RAG / LLM Agents</p>
+<div class="ps-projects">
+<a href="#quests">★ TrustRAG-Agent — multi-agent RAG that verifies before it answers (SQuAD v2, open source)</a>
+<a href="#quests">★ SwarRaksha — real-time shield against AI voice-clone scam calls</a>
+<a href="#quests">★ ForenSketch AI — witness description (English + Hinglish) to police-style facial sketch</a>
+</div>
+<div class="ps-btns">
+<a class="btn btn-gold" href="Ankit_Pal_Resume.pdf" download>Download Resume ↓</a>
+<a class="btn btn-ghost" href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub ↗</a>
+<a class="btn btn-ghost" href="https://linkedin.com/in/ankitpalbuilds" target="_blank" rel="noopener">LinkedIn ↗</a>
+<a class="btn btn-ghost" href="mailto:ankit200211222@gmail.com">Email ↗</a>
+</div>
+</div>
+</section>
 
 <!-- PAGE TURN — Scene 01 → Scene 02 (fixed cover + title card, driven by one master ScrollTrigger) -->
 <div id="pageTurnZone" aria-hidden="true"></div>
@@ -1094,7 +1146,7 @@ html.js-pt2 #ptCover2{display:block}
 <article class="pw-card pw-primary"><p class="pw-tag">03 / RANK</p><p class="pw-value"><span class="pw-sr">AIR 15</span><span class="pw-count" aria-hidden="true" data-target="15" data-prefix="AIR ">AIR 15</span></p><h3 class="pw-label">NCAT 2025 — All India Rank</h3><p class="pw-body">Rank 15, Slot 3 — All India.</p></article>
 <article class="pw-card pw-secondary"><p class="pw-tag">02 / PROBLEM SOLVING</p><p class="pw-value"><span class="pw-sr">256</span><span class="pw-count" aria-hidden="true" data-target="256">256</span></p><h3 class="pw-label">LeetCode Problems Solved</h3><p class="pw-body">Consistent DSA grind behind the contest results.</p></article>
 <article class="pw-card pw-secondary"><p class="pw-tag">04 / INTELLECTUAL PROPERTY</p><p class="pw-value"><span class="pw-sr">5</span><span class="pw-count" aria-hidden="true" data-target="5">5</span></p><h3 class="pw-label">Registered Copyrights</h3><p class="pw-body">4 as author + 1 co-owned — Copyright Office, India.</p></article>
-<article class="pw-card pw-secondary"><p class="pw-tag">05 / OPEN SOURCE</p><p class="pw-value"><span class="pw-sr">3</span><span class="pw-count" aria-hidden="true" data-target="3">3</span></p><h3 class="pw-label">Open-Source PRs — cubrid-lab</h3><p class="pw-body">3 PRs submitted, 2 approved.</p></article>
+<article class="pw-card pw-secondary"><p class="pw-tag">05 / OPEN SOURCE</p><p class="pw-value"><span class="pw-sr">2</span><span class="pw-count" aria-hidden="true" data-target="2">2</span></p><h3 class="pw-label">Open-Source PRs — cubrid-lab</h3><p class="pw-body">pycubrid #1300 merged · cubrid-mcp-server #590 in review.</p></article>
 <article class="pw-card pw-secondary"><p class="pw-tag">06 / RECOGNITION</p><p class="pw-value"><span class="pw-sr">6</span><span class="pw-count" aria-hidden="true" data-target="6">6</span></p><h3 class="pw-label">GitHub Achievements</h3><p class="pw-body">Pull Shark ×2 · Quickdraw · YOLO · Developer Program Member · Pro</p></article>
 </div></div></section>
 
@@ -1130,7 +1182,7 @@ html.js-pt2 #ptCover2{display:block}
 <div class="qt-head">
 <div class="qt-eyebrow-row"><span class="qt-dot" aria-hidden="true"></span><p class="qt-eyebrow">CHAPTER 05</p></div>
 <div class="qt-titleRow"><h2 class="qt-h2">QUEST LOG</h2><span class="qt-hanko" aria-hidden="true">05</span></div>
-<p class="qt-sub">Eight completed quests — flagship research build, safety systems, forensic AI, client work and open source.</p>
+<p class="qt-sub">Ten completed quests — flagship research build, safety systems, forensic AI, local AI tooling, client work and open source.</p>
 </div>
 <div class="qt-grid">
 <article class="qt-card qt-half qt-flag" data-row="1"><p class="qt-badge">QUEST 01 ★ FLAGSHIP</p><h3 class="qt-name">TrustRAG-Agent</h3><p class="qt-body">Flagship open-source implementation of his own research paper: multi-agent RAG with planner, hybrid retriever, verifier, cited generator and abstention.</p><div class="qt-tags"><span class="qt-tag">Multi-Agent RAG</span><span class="qt-tag">Python</span><span class="qt-tag">Open Source</span></div><div class="qt-links"><a href="https://github.com/Ankit500ak/TrustRAG-Agent" target="_blank" rel="noopener">Open Repo ↗</a></div></article>
@@ -1138,9 +1190,11 @@ html.js-pt2 #ptCover2{display:block}
 <article class="qt-card qt-third" data-row="2"><p class="qt-badge">QUEST 03</p><h3 class="qt-name">ForenSketch AI</h3><p class="qt-body">Turns a witness description (English + Hinglish) into a police-style facial sketch: 31-attribute schema, retrieval over a 200-record database, ~30 ms sketch render. 100% attribute accuracy on an in-house 9-persona validation set, 20/20 tests.</p><div class="qt-tags"><span class="qt-tag">FastAPI</span><span class="qt-tag">NLP</span><span class="qt-tag">Forensics</span></div></article>
 <article class="qt-card qt-third" data-row="2"><p class="qt-badge">QUEST 04</p><h3 class="qt-name">Geriatric Care Assessment Form</h3><p class="qt-body">React 19 + TypeScript + Mantine + Zod assessment form built to a client brief — schema-driven validation, live and deployed.</p><div class="qt-tags"><span class="qt-tag">React 19</span><span class="qt-tag">TypeScript</span><span class="qt-tag">Zod</span></div><div class="qt-links"><a href="https://ankit500ak.github.io/geriatric-assessment-form/" target="_blank" rel="noopener">Live Demo ↗</a><a href="https://github.com/Ankit500ak/geriatric-assessment-form" target="_blank" rel="noopener">Code ↗</a></div></article>
 <article class="qt-card qt-third" data-row="2"><p class="qt-badge">QUEST 05</p><h3 class="qt-name">swarm-agent</h3><p class="qt-body">Local coding-agent CLI that distributes inference across Ollama instances on a LAN — code never leaves the network. Built with collaborator Dhruv (heywinterbell).</p><div class="qt-tags"><span class="qt-tag">CLI</span><span class="qt-tag">Ollama</span><span class="qt-tag">LAN AI</span></div><div class="qt-links"><a href="https://github.com/Ankit500ak/swarm-agent" target="_blank" rel="noopener">Open Repo ↗</a></div></article>
-<article class="qt-card qt-third" data-row="3"><p class="qt-badge">QUEST 06</p><h3 class="qt-name">Kokoro Studio (StoryForge)</h3><p class="qt-body">AI story-generation platform, Gemini-powered — 55/55 tests passing.</p><div class="qt-tags"><span class="qt-tag">Gemini</span><span class="qt-tag">AI Platform</span></div></article>
+<article class="qt-card qt-third" data-row="3"><p class="qt-badge">QUEST 06</p><h3 class="qt-name">Kokoro Studio (StoryForge)</h3><p class="qt-body">AI story-to-video platform — Gemini story generation with locally-run Kokoro text-to-speech (StoryForge); 55/55 tests passing.</p><div class="qt-tags"><span class="qt-tag">Gemini</span><span class="qt-tag">AI Platform</span></div></article>
 <article class="qt-card qt-third" data-row="3"><p class="qt-badge">QUEST 07</p><h3 class="qt-name">Bhumio OCR ML Pipeline</h3><p class="qt-body">Document OCR + ML pipeline built for a client take-home. Code is private — live demo available.</p><div class="qt-tags"><span class="qt-tag">OCR</span><span class="qt-tag">ML Pipeline</span></div><div class="qt-links"><a href="https://bhumio-ocr-ml-pipeline.vercel.app" target="_blank" rel="noopener">Live Demo ↗</a></div></article>
-<article class="qt-card qt-third" data-row="3"><p class="qt-badge">QUEST 08</p><h3 class="qt-name">Open-Source — cubrid-lab</h3><p class="qt-body">Three PRs to cubrid-lab projects: pycubrid #1300 (approved), cubrid-mcp-server #590 (approved), cubrid-cookbook-python #589.</p><div class="qt-tags"><span class="qt-tag">Open Source</span><span class="qt-tag">Python</span></div><div class="qt-links"><a href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub Profile ↗</a></div></article>
+<article class="qt-card qt-third" data-row="3"><p class="qt-badge">QUEST 08</p><h3 class="qt-name">Open-Source — cubrid-lab</h3><p class="qt-body">Two PRs to cubrid-lab projects: pycubrid #1300 (merged) and cubrid-mcp-server #590 (changes addressed — re-review awaited).</p><div class="qt-tags"><span class="qt-tag">Open Source</span><span class="qt-tag">Python</span></div><div class="qt-links"><a href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub Profile ↗</a></div></article>
+<article class="qt-card qt-third" data-row="4"><p class="qt-badge">QUEST 09</p><h3 class="qt-name">StreamLLM</h3><p class="qt-body">Run any GGUF model on low-end PCs — llama.cpp inference with a FastAPI layer. Built and live-tested.</p><div class="qt-tags"><span class="qt-tag">llama.cpp</span><span class="qt-tag">FastAPI</span><span class="qt-tag">GGUF</span></div></article>
+<article class="qt-card qt-third" data-row="4"><p class="qt-badge">QUEST 10</p><h3 class="qt-name">Saarthi</h3><p class="qt-body">AI career platform matching students to internships.</p><div class="qt-tags"><span class="qt-tag">React</span><span class="qt-tag">Node.js</span></div></article>
 </div></div></section>
 
 
@@ -1153,7 +1207,7 @@ html.js-pt2 #ptCover2{display:block}
 <div class="gl-overlay" id="glOverlay">
 <p class="gl-kicker">Side Chapter — Exhibition</p>
 <h2 class="gl-title">The <span class="gl-red">Gallery</span></h2>
-<p class="gl-sub">Walk the walls — <b>projects</b> left · <b>copyrights &amp; research</b> right</p>
+<p class="gl-sub">Walk the walls — <b>best projects</b> left · <b>copyrights &amp; research</b> right</p>
 </div>
 <div class="gl-endBtns" id="glEndBtns">
 <a class="gl-btn gl-btn-main" href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub ↗</a>
@@ -1165,14 +1219,14 @@ html.js-pt2 #ptCover2{display:block}
 </div>
 <div class="gl-fallback">
 <h2 class="gl-fb-title">The <span>Gallery</span></h2>
-<p class="gl-fb-sub">Walk the walls — <b>projects</b> left · <b>copyrights &amp; research</b> right</p>
+<p class="gl-fb-sub">Walk the walls — <b>best projects</b> left · <b>copyrights &amp; research</b> right</p>
 <div class="gl-fb-grid">
 <div class="gl-fb-col">
 <h3>Best Projects</h3>
-<article class="gl-fb-card"><h4>TrustRAG-Agent</h4><p>Multi-agent RAG that verifies before it answers</p><p class="gl-fb-tech">Python · SQuAD v2: hallucination 77.0% → 58.7%</p></article>
+<article class="gl-fb-card"><h4>TrustRAG-Agent</h4><p>Multi-agent RAG that verifies before it answers</p><p class="gl-fb-tech">Python · SQuAD v2: fabrication 100% → 74.0% → 58.7% across two gates</p></article>
 <article class="gl-fb-card"><h4>SwarRaksha</h4><p>Real-time shield against AI voice-clone scam calls</p><p class="gl-fb-tech">Python / FastAPI</p></article>
 <article class="gl-fb-card"><h4>StreamLLM</h4><p>Run any GGUF model on low-end PCs</p><p class="gl-fb-tech">llama.cpp · FastAPI</p></article>
-<article class="gl-fb-card"><h4>Kokoro Studio</h4><p>AI story-to-video automation platform</p><p class="gl-fb-tech">FastAPI · React</p></article>
+<article class="gl-fb-card"><h4>Kokoro Studio</h4><p>AI story-to-video platform — Gemini story generation with locally-run Kokoro text-to-speech (StoryForge)</p><p class="gl-fb-tech">FastAPI · React</p></article>
 <article class="gl-fb-card"><h4>Saarthi</h4><p>AI career platform matching students to internships</p><p class="gl-fb-tech">React · Node.js</p></article>
 </div>
 <div class="gl-fb-col">
@@ -1184,9 +1238,11 @@ html.js-pt2 #ptCover2{display:block}
 <article class="gl-fb-card"><h4>Athenaeum</h4><p>Online bookstore · Python / HTML</p><p>Registered 24 Feb 2025 · Co-owner</p><p class="gl-fb-tech">ROC SW-20183/2025</p></article>
 <h3>Research Papers</h3>
 <article class="gl-fb-card"><h4>Agentic Retrieval-Augmented Generation</h4><p>Multi-agent framework for trustworthy retrieval: verification, abstention and audit trails against hallucination.</p><p class="gl-fb-tech">IEEE preprint · 2026 · Preprint — not peer-reviewed</p></article>
-<article class="gl-fb-card"><h4>Who Verifies the Verifier? LLM-as-a-Judge Evaluation</h4><p>Reliability, bias and trust in LLM-as-a-Judge evaluation; proposes the Verified Judge Protocol.</p><p class="gl-fb-tech">Preprints.org · 2026 · Preprint — not peer-reviewed</p></article>
-<article class="gl-fb-card"><h4>Training on Its Own Output: Model Collapse</h4><p>What happens when models train on their own output — evidence and safeguards.</p><p class="gl-fb-tech">Preprints.org · 2026 · Preprint — not peer-reviewed</p></article>
-<article class="gl-fb-card"><h4>Beyond Silicon: Post-Semiconductor Computing</h4><p>Post-semiconductor computing substrates and their readiness for an era of scarcity.</p><p class="gl-fb-tech">Preprints.org · 2026 · Preprint — not peer-reviewed</p></article>
+<article class="gl-fb-card"><h4>Who Verifies the Verifier? LLM-as-a-Judge Evaluation</h4><p>Reliability, bias and trust in LLM-as-a-Judge evaluation; proposes the Verified Judge Protocol.</p><p class="gl-fb-tech">Preprints.org · Live · DOI 10.20944/preprints202611.2489.v1</p></article>
+<article class="gl-fb-card"><h4>Training on Its Own Output: Model Collapse</h4><p>What happens when models train on their own output — evidence and safeguards.</p><p class="gl-fb-tech">Preprint manuscript · 2026 · Not peer-reviewed</p></article>
+<article class="gl-fb-card"><h4>Beyond Silicon: Post-Semiconductor Computing</h4><p>Post-semiconductor computing substrates and their readiness for an era of scarcity.</p><p class="gl-fb-tech">Preprint manuscript · 2026 · Not peer-reviewed</p></article>
+<article class="gl-fb-card"><h4>Why Agents Fail</h4><p>A failure-mode taxonomy and containment framework for production multi-agent systems.</p><p class="gl-fb-tech">Preprint manuscript · 2026 · Not peer-reviewed</p></article>
+<article class="gl-fb-card"><h4>Beyond the Prompt: Security Failures in Agentic AI Systems</h4><p>Agent-to-agent attacks, memory poisoning and delegated permissions — a defence-in-depth framework.</p><p class="gl-fb-tech">Preprint manuscript · 2026 · Not peer-reviewed</p></article>
 </div>
 <div class="gl-fb-end">Ankit Pal — Full-Stack Developer · AI/ML · <b>github.com/Ankit500ak</b></div>
 </div>
@@ -1205,15 +1261,24 @@ html.js-pt2 #ptCover2{display:block}
 <p class="rs-meta">LAB NOTE // SQuAD v2</p>
 <p class="rs-badge">IEEE Preprint — Not Peer-Reviewed</p>
 <h3 class="rs-title">Agentic Retrieval-Augmented Generation: A Trustworthy Multi-Agent Framework for Reducing Hallucinations and Enabling Autonomous Enterprise Knowledge Work</h3>
-<p class="rs-desc">Measured results on SQuAD v2 only — the framework answers with citations, verifies its own output, and abstains when the evidence isn't there instead of fabricating.</p>
+<p class="rs-desc">A multi-agent framework — planner, hybrid retriever, verifier and cited generator — with a governance layer that abstains instead of fabricating, and a full audit log of every answer.</p>
 <div class="rs-metrics">
-<div class="rs-metric"><p class="rs-value">100% → 74%</p><p class="rs-cap">Fabricated answers on unanswerable questions — baseline vs TrustRAG</p></div>
-<div class="rs-metric"><p class="rs-value">100%</p><p class="rs-cap">Citation coverage on generated answers</p></div>
+<div class="rs-metric"><p class="rs-value">100% → 58.7%</p><p class="rs-cap">Fabricated answers on unanswerable questions — two gates: evidence verification (→ 74.0%), then answerability (→ 58.7% held-out)</p></div>
+<div class="rs-metric"><p class="rs-value">100%</p><p class="rs-cap">Citation coverage on generated answers (verification-gate study)</p></div>
 <div class="rs-metric"><p class="rs-value">15.8% / 21.1%</p><p class="rs-cap">F1 overall / F1 on the answered subset</p></div>
-<div class="rs-metric"><p class="rs-value">26%</p><p class="rs-cap">Abstention rate — refuses instead of hallucinating</p></div>
+<div class="rs-metric"><p class="rs-value">26%</p><p class="rs-cap">Abstains on unanswerable questions at the verification gate — refuses instead of hallucinating</p></div>
 </div>
 <a class="rs-link" href="https://github.com/Ankit500ak/TrustRAG-Agent" target="_blank" rel="noopener">See the Implementation ↗</a>
 </article>
+<div class="rs-list">
+<p class="rs-list-head">ALL RESEARCH — SIX PAPERS, HONEST STATUS</p>
+<div class="rs-item"><h4>Agentic Retrieval-Augmented Generation</h4><span class="rs-status">IEEE preprint · Not peer-reviewed · Featured above</span></div>
+<div class="rs-item"><h4>Who Verifies the Verifier? LLM-as-a-Judge Evaluation</h4><span class="rs-status">Preprints.org · Live · Not peer-reviewed · <a href="https://doi.org/10.20944/preprints202611.2489.v1" target="_blank" rel="noopener">DOI 10.20944/preprints202611.2489.v1</a></span></div>
+<div class="rs-item"><h4>Training on Its Own Output: Model Collapse</h4><span class="rs-status">Preprint manuscript · 2026 · Not peer-reviewed</span></div>
+<div class="rs-item"><h4>Beyond Silicon: Post-Semiconductor Computing</h4><span class="rs-status">Preprint manuscript · 2026 · Not peer-reviewed</span></div>
+<div class="rs-item"><h4>Why Agents Fail: A Failure-Mode Taxonomy and Containment Framework for Production Multi-Agent Systems</h4><span class="rs-status">Preprint manuscript · 2026 · Not peer-reviewed</span></div>
+<div class="rs-item"><h4>Beyond the Prompt: Security Failures in Agentic AI Systems</h4><span class="rs-status">Preprint manuscript · 2026 · Not peer-reviewed</span></div>
+</div>
 </div></section>
 
 <div class="ptz2" data-pt="fame" aria-hidden="true"></div>
@@ -1266,8 +1331,8 @@ html.js-pt2 #ptCover2{display:block}
 <div class="na-panel">
 <div class="na-stampRow"><span class="na-stamp">END → NEXT ARC</span></div>
 <h3 class="na-panelTitle">Ready for the next arc?</h3>
-<p class="na-panelBody">Ankit is available immediately and open to relocation — full-stack and AI product roles. One email starts the next chapter.</p>
-<div class="na-ctas"><a class="na-mail" href="mailto:ankit200211222@gmail.com">✉️ ankit200211222@gmail.com</a><a class="na-link" href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub ↗</a><a class="na-link" href="https://linkedin.com/in/ankitpalbuilds" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+<p class="na-panelBody">If the role is full-stack or AI product work, I would like to hear about it — the fastest way to reach me is the email button below.</p>
+<div class="na-ctas"><a class="na-mail" href="mailto:ankit200211222@gmail.com">✉️ ankit200211222@gmail.com</a><a class="na-link" href="https://github.com/Ankit500ak" target="_blank" rel="noopener">GitHub ↗</a><a class="na-link" href="https://linkedin.com/in/ankitpalbuilds" target="_blank" rel="noopener">LinkedIn ↗</a><a class="na-link" href="Ankit_Pal_Resume.pdf" download>Resume ↓</a></div>
 </div>
 <div class="na-contact">
 <p class="na-contact-eyebrow">MESSAGE BOX</p>
@@ -2490,10 +2555,10 @@ if(contactBtn)contactBtn.addEventListener('click',function(e){
 });
 
 var PROJECTS=[
- {num:'01',kicker:'Project 01',title:'TrustRAG-Agent',desc:'Multi-agent RAG that verifies before it answers',tech:'Python · SQuAD v2: hallucination 77.0% → 58.7%',motif:'graph',badgeLabel:'HALLUCINATION — SQUAD v2',badge:'77.0% → 58.7%',chips:['Python','SQuAD v2','Multi-Agent']},
+ {num:'01',kicker:'Project 01',title:'TrustRAG-Agent',desc:'Multi-agent RAG that verifies before it answers',tech:'Python · SQuAD v2: fabrication 100% → 74.0% → 58.7% (two gates)',motif:'graph',badgeLabel:'HALLUCINATION — SQUAD v2 · TWO GATES',badge:'100% → 74.0% → 58.7%',chips:['Python','SQuAD v2','Multi-Agent']},
  {num:'02',kicker:'Project 02',title:'SwarRaksha',desc:'Real-time shield against AI voice-clone scam calls',tech:'Python / FastAPI',motif:'shield',badge:'REAL-TIME SHIELD',chips:['Python','FastAPI']},
  {num:'03',kicker:'Project 03',title:'StreamLLM',desc:'Run any GGUF model on low-end PCs',tech:'llama.cpp · FastAPI',motif:'chip',badge:'ANY GGUF · LOW-END PC',chips:['llama.cpp','FastAPI','GGUF']},
- {num:'04',kicker:'Project 04',title:'Kokoro Studio',desc:'AI story-to-video automation platform',tech:'FastAPI · React',motif:'play',badge:'STORY → VIDEO',chips:['FastAPI','React']},
+ {num:'04',kicker:'Project 04',title:'Kokoro Studio',desc:'AI story-to-video platform — Gemini story generation with locally-run Kokoro text-to-speech (StoryForge)',tech:'FastAPI · React',motif:'play',badge:'STORY → VIDEO',chips:['FastAPI','React']},
  {num:'05',kicker:'Project 05',title:'Saarthi',desc:'AI career platform matching students to internships',tech:'React · Node.js',motif:'compass',badge:'STUDENTS → INTERNSHIPS',chips:['React','Node.js']}
 ];
 var RIGHT=[
@@ -2503,9 +2568,9 @@ var RIGHT=[
  {kind:'copy',kicker:'Copyright — Copyright Office of India',title:'ShadowMesh',desc:'Ephemeral, privacy-focused blockchain chat · Python',reg:'Registered 8 Dec 2025 · With Dhruv',tech:'ROC SW-2025022030'},
  {kind:'copy',kicker:'Copyright — Copyright Office of India',title:'Athenaeum',desc:'Online bookstore · Python / HTML',reg:'Registered 24 Feb 2025 · Co-owner',tech:'ROC SW-20183/2025'},
  {kind:'paper',kicker:'Research Paper',title:'Agentic Retrieval-Augmented Generation',desc:'IEEE preprint',abs:'Multi-agent framework for trustworthy retrieval: verification, abstention and audit trails against hallucination.',status:'2026 · Preprint — not peer-reviewed',tech:''},
- {kind:'paper',kicker:'Research Paper',title:'Who Verifies the Verifier? LLM-as-a-Judge Evaluation',desc:'Preprints.org',abs:'Reliability, bias and trust in LLM-as-a-Judge evaluation; proposes the Verified Judge Protocol.',status:'2026 · Preprint — not peer-reviewed',tech:''},
- {kind:'paper',kicker:'Research Paper',title:'Training on Its Own Output: Model Collapse',desc:'Preprints.org',abs:'What happens when models train on their own output — evidence and safeguards.',status:'2026 · Preprint — not peer-reviewed',tech:''},
- {kind:'paper',kicker:'Research Paper',title:'Beyond Silicon: Post-Semiconductor Computing',desc:'Preprints.org',abs:'Post-semiconductor computing substrates and their readiness for an era of scarcity.',status:'2026 · Preprint — not peer-reviewed',tech:''}
+ {kind:'paper',kicker:'Research Paper',title:'Who Verifies the Verifier? LLM-as-a-Judge Evaluation',desc:'Preprints.org',abs:'Reliability, bias and trust in LLM-as-a-Judge evaluation; proposes the Verified Judge Protocol.',status:'2026 · Live on Preprints.org — DOI 10.20944/preprints202611.2489.v1',tech:''},
+ {kind:'paper',kicker:'Research Paper',title:'Training on Its Own Output: Model Collapse',desc:'Preprint manuscript',abs:'What happens when models train on their own output — evidence and safeguards.',status:'2026 · Preprint — not peer-reviewed',tech:''},
+ {kind:'paper',kicker:'Research Paper',title:'Beyond Silicon: Post-Semiconductor Computing',desc:'Preprint manuscript',abs:'Post-semiconductor computing substrates and their readiness for an era of scarcity.',status:'2026 · Preprint — not peer-reviewed',tech:''}
 ];
 var LEFT_Z=[-6,-15,-24,-33,-42];
 var RIGHT_Z=[-8.5,-13,-17.5,-22,-26.5,-33,-37.5,-42,-46.5];
@@ -2522,9 +2587,10 @@ try{
   PERF_MOBILE=(_pw<820&&(_coarse||_touch||_uaM))||(_mem>0&&_mem<=2)||(_cores>0&&_cores<=2);
   PERF_LOW=PERF_MOBILE&&((_mem>0&&_mem<=1)||(_cores>0&&_cores<=2));
 }catch(e){ PERF_MOBILE=false; PERF_LOW=false; }
-var TEXW=PERF_MOBILE?1024:1280, TEXWE=PERF_MOBILE?1280:1600, TEXWS=PERF_MOBILE?1120:1400;
+var TEXW=PERF_MOBILE?1024:1280, TEXWE=1600, TEXWS=PERF_MOBILE?1120:1400;
 
 var renderer, scene, camera, dustA, dustB, panelIndex=[], targets=[], focusP=[], curP=0, pinMode='', near=false, maxAniso=4, focusName='';
+var texRedraws=[];
 var ENDSUB=0.60, ENDSUBP=0.518, endInfo=null, endRectPx=null;
 var PORTRAIT=false, WALLX=4.1, CEIL=5.2, CAMY=2.6, PANELY=2.6, SIGNY=4.35, RESTLY=2.55, ENDY=2.6;
 
@@ -2648,6 +2714,7 @@ function makeProjectFace(d,w,h){
   var dl=wrapText(x,d.desc,cw-pad-470), dy=ty+(PORTRAIT?150:84);
   for(i=0;i<Math.min(2,dl.length);i++){ x.fillText(dl[i],pad,dy); dy+=(PORTRAIT?76:57); }
   var by=dy+(PORTRAIT?130:22);
+  if(PORTRAIT){ var chipTop=(ch-150)-44, extra=chipTop-(by+120); if(extra>0)by+=Math.round(extra*0.45); }
   if(d.badgeLabel){
     x.fillStyle='#C9A44F'; x.font='700 '+(PORTRAIT?42:38)+'px "JetBrains Mono", monospace';
     x.fillText(d.badgeLabel,pad,by);
@@ -2670,7 +2737,7 @@ function makeProjectFace(d,w,h){
     off+=bw2+14;
   }
   var tex=new THREE.CanvasTexture(c);
-  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso;
+  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso; tex.generateMipmaps=true; tex.minFilter=THREE.LinearMipmapLinearFilter;
   return tex;
 }
 function makeCopyrightFace(d,w,h){
@@ -2718,7 +2785,7 @@ function makeCopyrightFace(d,w,h){
   x.fillStyle='#8E1F24'; x.fillText(d.tech,0,0);
   x.restore();
   var tex=new THREE.CanvasTexture(c);
-  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso;
+  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso; tex.generateMipmaps=true; tex.minFilter=THREE.LinearMipmapLinearFilter;
   return tex;
 }
 function makePaperFace(d,w,h){
@@ -2758,7 +2825,7 @@ function makePaperFace(d,w,h){
   x.strokeStyle='#7A5E1E'; x.lineWidth=2.5; rr(x,pad,ch-118,vw+44,58,9); x.stroke();
   x.fillStyle='#7A5E1E'; x.fillText(d.desc,pad+22,ch-76);
   var tex=new THREE.CanvasTexture(c);
-  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso;
+  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso; tex.generateMipmaps=true; tex.minFilter=THREE.LinearMipmapLinearFilter;
   return tex;
 }
 function makeEndTexture(w,h){
@@ -2793,7 +2860,7 @@ function makeEndTexture(w,h){
   x.fillText('FULL-STACK DEVELOPER · AI/ML',cw/2,ch*(PORTRAIT?ENDSUBP:ENDSUB));
   x.textAlign='left';
   var tex=new THREE.CanvasTexture(c);
-  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso;
+  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso; tex.generateMipmaps=true; tex.minFilter=THREE.LinearMipmapLinearFilter;
   return tex;
 }
 function makeSignTexture(main){
@@ -2804,7 +2871,7 @@ function makeSignTexture(main){
   var sg=x.createRadialGradient(cw/2,ch*0.52,10,cw/2,ch*0.52,ch*0.95);
   sg.addColorStop(0,'rgba(255,216,150,0.26)'); sg.addColorStop(1,'rgba(255,216,150,0)');
   x.fillStyle=sg; x.fillRect(0,0,cw,ch);
-  x.strokeStyle='rgba(213,163,67,0.08)'; x.fillStyle='rgba(213,163,67,0.08)';
+  x.strokeStyle='rgba(213,163,67,0.15)'; x.fillStyle='rgba(213,163,67,0.15)';
   motif(x,'book',cw/2,ch/2,88);
   grain(x,cw,ch,300,0.025,false);
   x.strokeStyle='#EFC65E'; x.lineWidth=5; x.strokeRect(14,14,cw-28,ch-28);
@@ -2812,14 +2879,14 @@ function makeSignTexture(main){
   x.textAlign='center';
   setLS(x,'8px');
   x.fillStyle='#D8404A'; x.font='700 40px "Barlow Condensed", sans-serif';
-  x.fillText('SIDE CHAPTER — EXHIBITION',cw/2,78);
+  x.fillText('SIDE CHAPTER — EXHIBITION',cw/2,70);
   x.fillStyle='#FAF6EA';
   var tsize=118; x.font=tsize+'px Anton, Impact, sans-serif';
   while(x.measureText(main).width>cw-160&&tsize>50){ tsize-=6; x.font=tsize+'px Anton, Impact, sans-serif'; }
-  x.fillText(main,cw/2,196);
+  x.fillText(main,cw/2,208);
   setLS(x,'0px'); x.textAlign='left';
   var tex=new THREE.CanvasTexture(c);
-  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso;
+  tex.encoding=THREE.sRGBEncoding; tex.anisotropy=maxAniso; tex.generateMipmaps=true; tex.minFilter=THREE.LinearMipmapLinearFilter;
   return tex;
 }
 function makeWallTexture(){
@@ -2908,6 +2975,7 @@ function makePanel(d,w,h){
     new THREE.MeshBasicMaterial({map:faceTex})
   );
   face.position.z=0.03;
+  texRedraws.push({mesh:face,make:function(){ return (d.kind==='copy')?makeCopyrightFace(d,w,h):(d.kind==='paper')?makePaperFace(d,w,h):makeProjectFace(d,w,h); }});
   grp.add(ink); grp.add(outer); grp.add(frame); grp.add(face);
   return grp;
 }
@@ -2932,6 +3000,7 @@ function makeSign(main,w,mounted){
   var ink=new THREE.Mesh(new THREE.PlaneGeometry(w+0.3,h+0.3),new THREE.MeshBasicMaterial({color:0x000000}));
   ink.position.z=-0.03;
   var face=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:makeSignTexture(main),fog:false}));
+  texRedraws.push({mesh:face,make:function(){ return makeSignTexture(main); }});
   face.position.z=0.02;
   grp.add(ink); grp.add(face);
   return grp;
@@ -2963,7 +3032,7 @@ function init(){
   CEIL=PORTRAIT?4.6:5.2;
   CAMY=PORTRAIT?2.30:2.6;
   PANELY=PORTRAIT?2.42:2.6;
-  SIGNY=PORTRAIT?4.02:4.38;
+  SIGNY=PORTRAIT?4.02:4.36;
   RESTLY=PORTRAIT?(CAMY+0.02):(CAMY-0.05);
   ENDY=PORTRAIT?2.45:2.6;
   camera=new THREE.PerspectiveCamera(PORTRAIT?90:62,aspect,0.1,120);
@@ -2995,8 +3064,15 @@ function init(){
   var trimMat=new THREE.MeshStandardMaterial({color:0x7d6224,metalness:0.65,roughness:0.42,emissive:0x100a01});
   [-1,1].forEach(function(s){
     [(PORTRAIT?0.05:0.14),CEIL-0.22].forEach(function(y){
-      var trim=new THREE.Mesh(new THREE.BoxGeometry(0.045,0.045,LEN),trimMat);
-      trim.position.set(s*(WALLX-0.03),y,ZC); scene.add(trim);
+      if(!PORTRAIT&&y>1){
+        [[8.2,21.6],[-34.65,52.7]].forEach(function(seg){
+          var trim=new THREE.Mesh(new THREE.BoxGeometry(0.045,0.045,seg[1]),trimMat);
+          trim.position.set(s*(WALLX-0.03),y,seg[0]); scene.add(trim);
+        });
+      } else {
+        var trim=new THREE.Mesh(new THREE.BoxGeometry(0.045,0.045,LEN),trimMat);
+        trim.position.set(s*(WALLX-0.03),y,ZC); scene.add(trim);
+      }
     });
     [-1.18,1.18].forEach(function(xo){
       if(PORTRAIT)return;
@@ -3033,6 +3109,7 @@ function init(){
   var endFace=new THREE.Mesh(new THREE.PlaneGeometry(endW,endH),
     new THREE.MeshBasicMaterial({map:makeEndTexture(endW,endH)}));
   endFace.position.z=0.03;
+  texRedraws.push({mesh:endFace,make:function(){ return makeEndTexture(endW,endH); }});
   endGrp.add(endInk); endGrp.add(endOuter); endGrp.add(endFrame); endGrp.add(endFace);
   endGrp.position.set(0,ENDY,END_Z+0.25); scene.add(endGrp);
   endInfo={w:endW,h:endH,fx:54/1600,fy:54/Math.round(1600*endH/endW),y:ENDY,z:END_Z+0.28};
@@ -3044,7 +3121,7 @@ function init(){
     bg2.rotation.y=(s<0)?Math.PI/2:-Math.PI/2;
     bg2.position.set(s*(WALLX-0.03),0.55,ZC); scene.add(bg2);
   });
-  targets.push({x:0,y:ENDY,z:END_Z+0.28,side:0,fc:-50.6,vx:0,vz:PORTRAIT?-52.9:(CAM_START-TRAVEL),range:5.5,lz:END_Z+0.28,name:'ANKIT PAL — End Panel'});
+  targets.push({x:0,y:(PORTRAIT?ENDY-0.4:ENDY),z:END_Z+0.28,side:0,fc:-50.6,vx:0,vz:PORTRAIT?-52.9:(CAM_START-TRAVEL),range:5.5,lz:END_Z+0.28,name:'ANKIT PAL — End Panel'});
 
   var signL=makeSign('PROJECTS',PORTRAIT?3.9:4.6);
   signL.position.set(-WALLX+0.05,SIGNY,PORTRAIT?-11.0:-5.45); signL.rotation.y=Math.PI/2; scene.add(signL);
@@ -3253,7 +3330,7 @@ function frame(){
   hint.style.opacity=curP<0.012?'1':'0';
   bar.style.width=(curP*100).toFixed(1)+'%';
   var shouldEnd=curP>0.955;
-  if(shouldEnd!==endOn){ endOn=shouldEnd; if(endBtns)endBtns.classList.toggle('on',endOn); document.body.classList.toggle('gl-ended',endOn); if(bar&&bar.parentNode)bar.parentNode.style.opacity=shouldEnd?'0':'1'; }
+  if(shouldEnd!==endOn){ endOn=shouldEnd; if(endBtns)endBtns.classList.toggle('on',endOn); document.body.classList.toggle('gl-ended',endOn); if(bar&&bar.parentNode)bar.parentNode.style.opacity=shouldEnd?'0':'1'; if(PERF_MOBILE){ try{ renderer.setPixelRatio(endOn?Math.min(window.devicePixelRatio||1,2):(PERF_LOW?1.25:1.5)); onResize(); }catch(e){} } }
   if(endOn&&endBtns&&endInfo&&camera){
     camera.updateMatrixWorld();
     var vw2=wrap.clientWidth||window.innerWidth, vh2=wrap.clientHeight||window.innerHeight;
@@ -3287,17 +3364,49 @@ function frame(){
   } else if(!endOn){ endRectPx={on:false}; }
   renderer.render(scene,camera);
 }
-var booted=false;
+var booted=false, bootLate=false;
 function boot(){
   if(booted)return; booted=true;
   try{ init(); }catch(e){ fallback(); }
 }
-if(document.fonts&&document.fonts.ready){
-  var t=setTimeout(boot,1600);
-  document.fonts.ready.then(function(){ clearTimeout(t); boot(); });
+function redrawFontTextures(){
+  for(var i=0;i<texRedraws.length;i++){
+    try{
+      var nt=texRedraws[i].make(), mt=texRedraws[i].mesh.material;
+      if(mt.map)mt.map.dispose();
+      mt.map=nt; mt.needsUpdate=true;
+    }catch(e){}
+  }
+}
+if(document.fonts&&document.fonts.load){
+  var GL_FONT_SPECS=['110px Anton','700 50px "Barlow Condensed"','400 45px Archivo','700 43px Archivo','700 40px "JetBrains Mono"'];
+  var glFontLoads=GL_FONT_SPECS.map(function(s){ return document.fonts.load(s).catch(function(){ return []; }); });
+  var glFontsDone=Promise.all(glFontLoads.concat([document.fonts.ready]));
+  var glFontTimer=setTimeout(function(){ bootLate=true; boot(); },4500);
+  glFontsDone.then(function(){
+    clearTimeout(glFontTimer);
+    if(booted&&bootLate)redrawFontTextures();
+    boot();
+  }).catch(function(){ clearTimeout(glFontTimer); boot(); });
 } else { boot(); }
 })();
 </script>
 
+
+<script>
+(function(){
+  var b=document.getElementById('rmToggle'); if(!b) return;
+  function set(on){
+    document.body.classList.toggle('rm-on',on);
+    b.setAttribute('aria-pressed',on?'true':'false');
+    b.textContent=on?'STORY MODE':'RECRUITER MODE';
+    try{ localStorage.setItem('rm-mode',on?'1':'0'); }catch(e){}
+  }
+  var init=false;
+  try{ init=localStorage.getItem('rm-mode')==='1'; }catch(e){}
+  set(init);
+  b.addEventListener('click',function(){ set(!document.body.classList.contains('rm-on')); });
+})();
+</script>
 </body>
 </html>
